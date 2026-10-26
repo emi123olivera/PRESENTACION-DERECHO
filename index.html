@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El derecho fiscal y la historia de los tributos en México</title>
+<meta name="description" content="Presentación interactiva escolar: el derecho fiscal, los tributos prehispánicos y coloniales, el ISR y el IVA.">
+<style>
+:root{
+  --navy:#101B2D; --navy-2:#182640; --navy-3:#0B1322;
+  --ivory:#F6F0E6; --gold:#D3A451; --gold-lt:#EBCB8B; --terra:#AC5146; --terra-lt:#E8978B; --white:#fff; --ok:#7BC49A;
+  --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+  --sans:"Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --glass:rgba(246,240,230,.075); --glass-b:rgba(246,240,230,.2);
+  --ease:cubic-bezier(.22,.8,.22,1);
+  --mx:0; --my:0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#070d18;color:var(--ivory);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+button:focus-visible,[tabindex]:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold-lt);outline-offset:3px;border-radius:12px}
+svg{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+
+#viewport{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;isolation:isolate;background:var(--navy);box-shadow:0 0 90px rgba(0,0,0,.65);animation:iris 1.1s var(--ease) both}
+@keyframes iris{from{clip-path:circle(0% at 50% 50%)}to{clip-path:circle(85% at 50% 50%)}}
+
+#bg{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(1200px 720px at calc(85% + var(--mx)*40px) calc(-8% + var(--my)*30px),rgba(211,164,81,.24),transparent 62%),
+  radial-gradient(1000px 640px at calc(-4% - var(--mx)*40px) calc(106% - var(--my)*30px),rgba(172,81,70,.30),transparent 62%),
+  linear-gradient(160deg,#16264a 0%,#101B2D 52%,#0A111F 100%)}
+#bg::after{content:"";position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+#bg::before{content:"";position:absolute;inset:0;box-shadow:inset 0 0 220px 40px rgba(4,8,16,.7)}
+
+/* ---------- Barra superior e inferior ---------- */
+#top{position:absolute;z-index:50;left:0;right:0;top:0;height:76px;padding:0 90px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:14px;align-items:center;letter-spacing:.26em;font-size:14px;text-transform:uppercase;color:var(--gold-lt);font-weight:600}
+.tools{display:flex;gap:12px}
+.pill{height:46px;padding:0 20px;border-radius:23px;background:var(--glass);border:1px solid var(--glass-b);font-size:17px;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:background .25s,transform .25s var(--ease),border-color .25s,box-shadow .25s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pill:hover{background:rgba(246,240,230,.17);transform:translateY(-2px);border-color:rgba(235,203,139,.6);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.pill:active{transform:translateY(0) scale(.97)}
+.pill.sm{height:38px;padding:0 16px;font-size:15px}
+.pill.gold{background:linear-gradient(135deg,#EBCB8B,#D3A451);color:#1b1304;border-color:transparent;box-shadow:0 10px 26px rgba(211,164,81,.35)}
+.pill.gold:hover{background:linear-gradient(135deg,#F6DDA6,#DDAE5C)}
+.sw{width:36px;height:20px;border-radius:10px;background:rgba(246,240,230,.25);position:relative;transition:background .25s}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:var(--ivory);transition:transform .3s var(--ease)}
+[aria-pressed="true"]>.sw{background:var(--gold)}
+[aria-pressed="true"]>.sw::after{transform:translateX(16px);background:#fff}
+
+#bot{display:grid;position:absolute;z-index:50;left:0;right:0;bottom:6px;height:78px;padding:0 90px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.help{font-size:15px;color:rgba(246,240,230,.62);letter-spacing:.03em}
+.help kbd{font-family:var(--sans);font-size:13px;border:1px solid var(--glass-b);border-bottom-width:2px;border-radius:6px;padding:1px 7px;margin:0 2px;color:var(--ivory)}
+.navc{display:flex;align-items:center;gap:14px}
+.arrow{width:54px;height:54px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-b);display:grid;place-items:center;transition:transform .25s var(--ease),background .25s,box-shadow .25s,opacity .25s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.arrow:hover:not(:disabled){background:linear-gradient(135deg,#EBCB8B,#D3A451);color:#1b1304;transform:scale(1.1);box-shadow:0 8px 24px rgba(211,164,81,.4)}
+.arrow:disabled{opacity:.3;cursor:default}
+.arrow svg{width:24px;height:24px}
+.steps{display:flex;gap:10px}
+.step{height:46px;padding:0 22px;border-radius:23px;border:1px solid var(--glass-b);background:rgba(246,240,230,.04);font-size:16px;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:10px;color:rgba(246,240,230,.72);transition:all .3s var(--ease)}
+.step b{font-family:var(--serif);color:var(--gold-lt);font-size:18px}
+.step:hover{color:var(--white);border-color:var(--gold)}
+.step[aria-current="true"]{background:var(--ivory);color:var(--navy);border-color:var(--ivory)}
+.step[aria-current="true"] b{color:var(--terra)}
+.counter{line-height:1;height:54px;justify-self:end;font-family:var(--serif);font-size:44px;letter-spacing:.04em;display:flex;align-items:baseline;gap:8px}
+.counter .cur{color:var(--gold-lt);display:inline-block;min-width:1.2em;text-align:right}
+.counter .tot{color:rgba(246,240,230,.5);font-size:30px}
+.counter .cur.flip{animation:cflip .6s var(--ease)}
+@keyframes cflip{from{transform:translateY(40%) rotateX(-80deg);opacity:0}to{transform:none;opacity:1}}
+#prog{position:absolute;z-index:51;left:0;right:0;bottom:0;height:6px;background:rgba(246,240,230,.1)}
+#progFill{display:block;height:100%;width:100%;transform-origin:0 50%;background:linear-gradient(90deg,var(--terra),var(--gold),var(--gold-lt));box-shadow:0 0 18px rgba(211,164,81,.8);transition:transform .8s var(--ease)}
+
+/* ---------- Diapositivas ---------- */
+#deck{position:absolute;inset:0;z-index:10}
+.slide{position:absolute;inset:0;padding:96px 90px 0;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(7%,0,0) scale(.94);filter:blur(10px);
+  transition:opacity .75s var(--ease),transform .8s var(--ease),filter .75s var(--ease),visibility 0s linear .8s}
+.slide.before{transform:translate3d(-7%,0,0) scale(.94)}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;transform:none;filter:none;transition-delay:0s}
+.sweep{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+.sweep::after{content:"";position:absolute;top:-10%;bottom:-10%;width:420px;left:-1000px;opacity:0;background:linear-gradient(100deg,transparent,rgba(235,203,139,.28),transparent);transform:skewX(-14deg)}
+.sweep.go::after{animation:sweep .9s var(--ease)}
+@keyframes sweep{0%{left:-600px;opacity:1}99%{opacity:1}100%{left:2300px;opacity:0}}
+
+.rv{opacity:0;transform:translate3d(0,34px,0) scale(.97);transition:opacity .7s var(--ease),transform .85s var(--ease);transition-delay:0s}
+.slide.active .rv{opacity:1;transform:none;transition-delay:calc(var(--d,0) * 75ms + 300ms)}
+
+.kicker{font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:14px}
+.kicker b{font-family:var(--serif);font-size:24px;letter-spacing:.05em;color:var(--ivory);padding-right:14px;border-right:2px solid var(--gold)}
+.title{font-family:var(--serif);font-weight:800;font-size:62px;line-height:1.02;letter-spacing:-.005em;text-transform:uppercase;margin-top:6px}
+.title em{font-style:normal;color:var(--gold)}
+.title em.t{color:var(--terra-lt)}
+.hd{position:absolute;left:90px;right:90px;top:92px}
+
+.card{background:var(--glass);border:1px solid var(--glass-b);border-radius:26px;padding:20px 26px;backdrop-filter:blur(14px) saturate(1.25);-webkit-backdrop-filter:blur(14px) saturate(1.25);box-shadow:0 30px 60px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.14)}
+.card h3,.lab{font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.say{position:absolute;left:90px;right:90px;bottom:92px;min-height:56px;display:flex;align-items:center;gap:20px;padding:8px 26px;border-radius:18px;background:linear-gradient(90deg,rgba(211,164,81,.2),rgba(211,164,81,.05));border-left:5px solid var(--gold)}
+.say span{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-lt);font-weight:800;white-space:nowrap}
+.say p{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.3;color:#fff}
+
+/* ---------- Diapositiva 1 ---------- */
+.s1 .colL{position:absolute;left:90px;top:96px;width:790px}
+.s1 .colR{position:absolute;left:930px;top:100px;width:900px}
+.hero{font-family:var(--serif);font-weight:800;font-size:98px;line-height:.93;letter-spacing:-.01em;text-transform:uppercase;margin:8px 0 22px;perspective:900px}
+.hero .ln{display:block;white-space:nowrap}
+.hero .w{display:inline-block;margin-right:.06em;white-space:nowrap}
+.hero .ch{display:inline-block;opacity:0;transform:translateY(55%) rotateX(-75deg) scale(.9);filter:blur(10px);transform-origin:50% 100%;transition:opacity .7s var(--ease),transform .95s var(--ease),filter .7s var(--ease);transition-delay:calc(var(--i) * 32ms + 250ms)}
+.slide.active .hero .ch{opacity:1;transform:none;filter:none}
+.hero .ln.ac{color:var(--gold);text-shadow:0 0 50px rgba(211,164,81,.35)}
+.hero .ln.tx{color:var(--white)}
+.def{margin-bottom:12px;padding:16px 26px 18px}
+.def p{font-size:20px;line-height:1.42;color:#EFE8DA;margin-top:6px}
+.row2{display:flex;gap:16px;margin-top:2px}
+.cite{width:360px;height:142px;display:flex;flex-direction:column;justify-content:center;gap:6px;background:linear-gradient(145deg,rgba(211,164,81,.2),rgba(246,240,230,.05));border-color:rgba(211,164,81,.5)}
+.cite .t{font-family:var(--serif);font-size:22px;line-height:1.2;font-weight:700;color:#fff}
+.cite .s{font-size:14.5px;color:rgba(246,240,230,.72);line-height:1.35}
+.cite .seal{display:flex;gap:10px;align-items:center}.cite .lab{letter-spacing:.12em;font-size:12.5px}
+.flip{perspective:1300px;width:414px;height:142px;display:block;position:relative;transition:transform .3s var(--ease)}
+.flip:hover{transform:translateY(-4px)}
+.flip-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .85s var(--ease)}
+.flip[aria-pressed="true"] .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:8px;border-radius:26px;padding:16px 26px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 24px 50px -20px rgba(0,0,0,.6)}
+.face.front{background:linear-gradient(145deg,#C25E52,#8d3c33);border:1px solid rgba(255,255,255,.25)}
+.face.back{background:var(--ivory);color:var(--navy);transform:rotateY(180deg)}
+.face .lab{color:#FFE2B6}
+.face.back .lab{color:var(--terra)}
+.face .big{font-family:var(--serif);font-size:25px;font-weight:700;line-height:1.15}
+.face .big i{font-style:normal;color:#FFE2B6;margin:0 4px}
+.face.back p{font-size:17px;line-height:1.38}
+.face .tip{font-size:14px;opacity:.85}
+
+.scene1{position:relative;height:360px;border-radius:30px;overflow:hidden;border:1px solid var(--glass-b);box-shadow:0 40px 80px -30px rgba(0,0,0,.8);background:#101B2D}
+.scene1 svg{position:absolute;inset:0;width:100%;height:100%}
+.scene1 [data-part]{transition:opacity .5s,filter .5s}
+.scene1[data-focus="contrib"] [data-part]:not([data-part~="contrib"]),
+.scene1[data-focus="tax"] [data-part]:not([data-part~="tax"]),
+.scene1[data-focus="spend"] [data-part]:not([data-part~="spend"]){opacity:.28}
+.scene1[data-focus="contrib"] [data-part~="contrib"],.scene1[data-focus="tax"] [data-part~="tax"],.scene1[data-focus="spend"] [data-part~="spend"]{filter:drop-shadow(0 0 14px rgba(235,203,139,.8))}
+.hs{position:absolute;z-index:5;height:46px;padding:0 18px 0 8px;border-radius:23px;display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;background:rgba(11,19,34,.72);border:1px solid rgba(235,203,139,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 26px rgba(0,0,0,.45);transition:transform .3s var(--ease),background .3s,color .3s}
+.hs i{font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#1b1304;display:grid;place-items:center;font-size:15px;font-weight:800;position:relative}
+.hs:hover{transform:translateY(-3px) scale(1.04);background:rgba(246,240,230,.92);color:var(--navy)}
+.hs[aria-pressed="true"]{background:linear-gradient(135deg,#EBCB8B,#D3A451);color:#1b1304;border-color:transparent}
+.hs[aria-pressed="true"] i{background:#1b1304;color:var(--gold-lt)}
+.pulse i::after,.pulse-ring::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--gold-lt);animation:ring 1.8s ease-out infinite}
+@keyframes ring{from{transform:scale(.8);opacity:1}to{transform:scale(1.9);opacity:0}}
+.hint{position:absolute;left:22px;bottom:14px;z-index:5;font-size:15px;color:var(--gold-lt);letter-spacing:.04em;background:rgba(11,19,34,.6);padding:6px 14px;border-radius:14px}
+.info{margin-top:12px;height:136px;padding:14px 24px}
+.info-in{display:grid;grid-template-columns:104px 1fr;gap:20px;align-items:center;height:100%}
+.info-ic{width:104px;height:100px}
+.info-ic svg{width:100%;height:100%}
+.info h4{font-family:var(--serif);font-size:25px;margin-bottom:3px}
+.info p{font-size:18.5px;line-height:1.36;color:#EDE6D8}
+.info-in.fade{animation:infoIn .6s var(--ease)}
+@keyframes infoIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+/* iconos animados del panel */
+.a-drop{animation:dropc 1.5s var(--ease) both}
+@keyframes dropc{0%{transform:translateY(-26px);opacity:0}40%{opacity:1}100%{transform:translateY(0);opacity:1}}
+.a-draw{stroke-dasharray:90;stroke-dashoffset:90;animation:draw 1.2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.a-pop{transform-box:fill-box;transform-origin:center;animation:popc .7s var(--ease) both}
+@keyframes popc{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.a-fly1{animation:fly1 1.2s var(--ease) .3s both}.a-fly2{animation:fly2 1.2s var(--ease) .45s both}.a-fly3{animation:fly3 1.2s var(--ease) .6s both}
+@keyframes fly1{from{transform:translate(0,0)}to{transform:translate(-34px,28px)}}
+@keyframes fly2{from{transform:translate(0,0)}to{transform:translate(0,38px)}}
+@keyframes fly3{from{transform:translate(0,0)}to{transform:translate(34px,28px)}}
+
+.sim{margin-top:12px;padding:12px 22px 12px;height:296px}
+.sim-h{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.sim-h h3{font-family:var(--serif);font-size:27px;letter-spacing:0;text-transform:none;color:var(--white);font-weight:700}
+.sim-h p{font-size:15.5px;color:rgba(246,240,230,.75);margin-top:3px;line-height:1.3}
+.sim-b{display:grid;grid-template-columns:218px 1fr;gap:16px;margin-top:10px}
+.purse{border-radius:20px;border:1.5px dashed rgba(235,203,139,.55);background:rgba(11,19,34,.4);padding:8px 12px;height:140px;display:flex;flex-direction:column;gap:6px}
+.purse .lbl{font-size:12px;letter-spacing:.08em;white-space:nowrap;text-transform:uppercase;color:var(--gold-lt);font-weight:700}
+.coins{display:grid;grid-template-columns:repeat(3,46px);gap:6px 16px;justify-content:center;align-content:center;flex:1}
+.coin,.chip{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff3cc 0%,#EBCB8B 22%,#D3A451 55%,#946b25 100%);box-shadow:0 6px 14px rgba(0,0,0,.5),inset 0 0 0 3px rgba(255,246,220,.45),inset 0 -4px 6px rgba(120,80,10,.35);position:relative;touch-action:none;cursor:grab;transition:transform .25s var(--ease),box-shadow .25s}
+.coins .coin{width:46px;height:46px}.coins .coin::after{inset:9px}.coin::after,.chip::after{content:"";position:absolute;inset:11px;border-radius:50%;border:2px solid rgba(255,246,220,.7)}
+.coin:hover{transform:translateY(-5px) rotate(-8deg) scale(1.08);box-shadow:0 14px 22px rgba(0,0,0,.5),0 0 22px rgba(235,203,139,.8),inset 0 0 0 3px rgba(255,246,220,.55)}
+.coin.dragging{opacity:.25}
+.chip{width:26px;height:26px;cursor:default;box-shadow:0 3px 6px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,246,220,.45)}
+.chip::after{inset:5px;border-width:1.5px}
+.dests{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dest{position:relative;border-radius:20px;background:rgba(246,240,230,.07);border:1px solid var(--glass-b);padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;height:140px;transition:transform .3s var(--ease),background .3s,border-color .3s,box-shadow .3s;cursor:pointer}
+.dest svg{width:40px;height:40px;flex:none}
+.dest b{font-size:18px;font-weight:700}
+.dest:hover,.dest.over{background:rgba(235,203,139,.2);border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,.4),0 0 24px rgba(211,164,81,.35)}
+.dest .stack{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:26px;max-width:176px}
+.dest .cnt{position:absolute;right:10px;top:8px;font-style:normal;font-family:var(--serif);font-size:24px;color:var(--gold-lt)}
+.sim-msg{margin-top:8px;font-size:16.5px;line-height:1.35;color:#F3EDE0;min-height:48px}
+.sim-msg strong{color:var(--gold-lt)}
+.ghost{position:absolute;pointer-events:none;z-index:95;transform:scale(1.08) rotate(-6deg);filter:drop-shadow(0 16px 20px rgba(0,0,0,.5));opacity:.96}
+#ghostLayer{position:absolute;inset:0;z-index:90;pointer-events:none}
+
+/* ---------- Diapositiva 2 ---------- */
+.s2L{position:absolute;left:90px;top:198px;width:1040px}
+.s2R{position:absolute;left:1170px;top:198px;width:660px}
+.eraScene{position:relative;width:1040px;height:360px;border-radius:30px;overflow:hidden;border:1px solid var(--glass-b);box-shadow:0 40px 80px -30px rgba(0,0,0,.85);--rev:50;background:#1a1220}
+.era{position:absolute;inset:0;isolation:isolate}.era.meso{z-index:1}.era.colo{z-index:2}
+.era>svg{position:absolute;inset:0;width:100%;height:100%}
+.era.colo{clip-path:inset(0 0 0 calc(100% - var(--rev) * 1%))}
+.era .tag{position:absolute;top:18px;z-index:3;font-size:14px;letter-spacing:.28em;text-transform:uppercase;font-weight:800;padding:8px 16px;border-radius:16px;background:rgba(11,19,34,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.era.meso .tag{left:20px;color:var(--gold-lt)}
+.era.colo .tag{right:20px;color:#BFD3F5}
+.divider{position:absolute;top:0;bottom:0;left:calc(100% - var(--rev) * 1%);width:4px;margin-left:-2px;z-index:5;pointer-events:none;background:linear-gradient(var(--gold-lt),var(--gold));box-shadow:0 0 26px 5px rgba(211,164,81,.65)}
+.divider span{position:absolute;left:50%;top:42%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--navy);border:3px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 24px rgba(211,164,81,.8)}
+.divider svg{width:26px;height:26px}
+.obj{position:absolute;z-index:4;width:170px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.obj .ic{width:94px;height:94px;border-radius:50%;display:grid;place-items:center;background:rgba(11,19,34,.55);border:1.5px solid rgba(235,203,139,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 14px 30px rgba(0,0,0,.5);transition:transform .35s var(--ease),box-shadow .35s,background .35s,border-color .35s;position:relative}
+.obj .ic svg{width:62px;height:62px;transition:transform .5s var(--ease)}
+.obj span.n{white-space:nowrap;font-size:17px;font-weight:700;padding:3px 14px;border-radius:14px;background:rgba(11,19,34,.7)}
+.obj:hover .ic{transform:translateY(-8px) scale(1.1);background:rgba(246,240,230,.9);box-shadow:0 22px 34px rgba(0,0,0,.55),0 0 30px rgba(235,203,139,.7)}
+.obj:hover .ic svg{transform:rotate(-8deg) scale(1.08)}
+.obj[aria-pressed="true"] .ic{border-color:#fff;background:rgba(235,203,139,.9);box-shadow:0 0 0 5px rgba(235,203,139,.3),0 18px 30px rgba(0,0,0,.5)}
+.eraCtl{position:absolute;z-index:6;left:50%;bottom:14px;transform:translateX(-50%);width:700px;display:flex;align-items:center;gap:14px;padding:8px 16px;border-radius:32px;background:rgba(11,19,34,.78);border:1px solid rgba(235,203,139,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.eraCtl button{font-size:16px;font-weight:700;white-space:nowrap;padding:6px 10px;border-radius:14px;transition:color .2s,background .2s}
+.eraCtl button:hover{background:rgba(246,240,230,.14)}
+.eraCtl .gm{color:var(--gold-lt)}.eraCtl .gc{color:#BFD3F5}
+input[type=range]{-webkit-appearance:none;appearance:none;height:10px;border-radius:5px;background:linear-gradient(90deg,#C8715F,var(--gold),#7FA2E0);flex:1;outline-offset:8px;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2c9,var(--gold) 55%,#8b6a2b);border:2px solid #fff6dc;box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 0 6px rgba(211,164,81,.25);cursor:grab}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2c9,var(--gold) 55%,#8b6a2b);border:2px solid #fff6dc;box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 0 6px rgba(211,164,81,.25);cursor:grab}
+input[type=range]::-moz-range-track{background:transparent}
+.eraScene .hint{left:20px;right:auto;bottom:auto;top:64px;z-index:7;transition:opacity .5s}
+.eraCard{height:170px;padding:14px 26px}
+.eraCard h4{font-family:var(--serif);font-size:26px;margin:2px 0 4px}
+.eraCard p{font-size:18.5px;line-height:1.38;color:#EDE6D8}
+.eraCard.swap{animation:infoIn .55s var(--ease)}
+.ficha{margin-top:12px;height:186px;padding:14px 26px}
+.ficha-in{display:grid;grid-template-columns:78px 1fr;gap:18px}
+.ficha .fi{width:78px;height:78px;border-radius:20px;background:rgba(246,240,230,.1);display:grid;place-items:center}
+.ficha .fi svg{width:58px;height:58px}
+.ficha h4{font-family:var(--serif);font-size:25px;line-height:1.1}
+.ficha p{font-size:18px;line-height:1.38;color:#EDE6D8;margin-top:6px}
+.ficha .era-t{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.ficha.swap .ficha-in{animation:infoIn .5s var(--ease)}
+.ficha .pill{margin-top:8px}
+.game{margin-top:12px;height:358px;padding:12px 22px 12px;position:relative}
+.game-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.game-h h3{font-family:var(--serif);font-size:25px;letter-spacing:0;text-transform:none;color:#fff;font-weight:700}
+.game-h .meta{display:flex;align-items:center;gap:12px;font-size:16px;color:var(--gold-lt);font-weight:700}
+.tray{display:flex;gap:10px;margin:8px 0 8px;align-items:center}
+.tray .lbl{font-size:14px;color:rgba(246,240,230,.72);margin-right:6px;white-space:nowrap}
+.tok{height:44px;padding:0 18px;border-radius:22px;background:linear-gradient(135deg,#EBCB8B,#D3A451);color:#1b1304;font-weight:800;font-size:17px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 18px rgba(0,0,0,.4);touch-action:none;cursor:grab;transition:transform .25s var(--ease),box-shadow .25s,opacity .25s;white-space:nowrap}
+.tok:hover{transform:translateY(-3px) scale(1.04)}
+.tok.sel{outline:3px solid #fff;outline-offset:3px;transform:translateY(-4px)}
+.tok.dragging{opacity:.25}
+.tok.used{display:none}
+.tok.ghost{display:inline-flex}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.slot{height:168px;border-radius:18px;border:1.5px dashed rgba(235,203,139,.55);background:rgba(11,19,34,.35);padding:10px 14px;position:relative;display:flex;flex-direction:column;gap:6px;transition:all .3s var(--ease);cursor:pointer}
+.slot .sn{font-family:var(--serif);color:var(--gold-lt);font-size:20px;line-height:1}
+.slot p{font-size:17.5px;line-height:1.28;color:#F3EDE0}
+.slot .place{margin-top:auto;min-height:36px;display:flex}
+.slot:hover,.slot.over{background:rgba(235,203,139,.18);border-style:solid;border-color:var(--gold);transform:translateY(-3px)}
+.slot.ok{border-style:solid;border-color:var(--ok);background:rgba(123,196,154,.16);cursor:default;transform:none}
+.slot.ok .tok{height:34px;font-size:15px;background:var(--ok);color:#06210f;cursor:default;display:inline-flex}
+.slot.shake{animation:shake .5s}
+.slot.bad{border-color:var(--terra-lt);background:rgba(232,151,139,.16)}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.fb{margin-top:8px;font-size:17.5px;line-height:1.35;min-height:50px;color:#F3EDE0}
+.fb.ok strong{color:var(--ok)}.fb.bad strong{color:var(--terra-lt)}
+.fb.win{font-weight:700;color:var(--gold-lt)}
+.qr{margin-top:12px;height:346px;padding:14px 24px 14px;position:relative}
+.qr h3{font-family:var(--serif);font-size:25px;letter-spacing:0;text-transform:none;color:#fff;font-weight:700}
+.qr-stage{position:relative;height:176px;margin-top:34px}
+.qc{position:absolute;bottom:36px;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff3cc 0%,#EBCB8B 22%,#D3A451 55%,#946b25 100%);box-shadow:0 8px 16px rgba(0,0,0,.5),inset 0 0 0 4px rgba(255,246,220,.45),inset 0 -5px 8px rgba(120,80,10,.35);transition:transform .9s var(--ease),left .9s var(--ease),box-shadow .6s;display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:26px;color:#7a5617}
+.qc::after{content:"";position:absolute;inset:13px;border-radius:50%;border:2px solid rgba(255,246,220,.7)}
+.qr.split .qc.five{transform:translate(10px,-66px) scale(1.15);box-shadow:0 0 0 6px rgba(235,203,139,.35),0 0 38px rgba(235,203,139,.9),0 12px 22px rgba(0,0,0,.5)}
+.qr.split .qc.four{filter:saturate(.75)}
+.qr .br{position:absolute;bottom:22px;left:20px;width:352px;height:14px;border:3px solid rgba(246,240,230,.55);border-top:0;border-radius:0 0 12px 12px;opacity:0;transition:opacity .6s .6s}
+.qr .brl{position:absolute;bottom:-4px;left:20px;width:352px;text-align:center;font-size:17px;font-weight:700;opacity:0;transition:opacity .6s .7s;color:#F3EDE0}
+.qr.split .br,.qr.split .brl{opacity:1}
+.qr .qlab{position:absolute;right:-6px;top:4px;width:128px;text-align:center;opacity:0;transform:translateY(12px);transition:opacity .6s .6s,transform .6s .6s var(--ease)}
+.qr.split .qlab{opacity:1;transform:none}
+.qlab .pct{font-family:var(--serif);font-size:54px;line-height:1;color:var(--gold-lt);font-weight:800}
+.qlab .t{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.qr .note{font-size:16.5px;line-height:1.38;color:#EDE6D8;margin-top:16px}
+.qr .note strong{color:var(--gold-lt)}
+.qr .pill{position:absolute;right:24px;top:12px}
+
+/* ---------- Diapositiva 3 ---------- */
+.tlWrap{position:absolute;left:90px;top:204px;width:1100px;height:232px;padding:0}
+.tl{position:relative;height:100%}
+.tl-line{position:absolute;left:0;right:0;top:94px;height:6px;border-radius:3px;background:rgba(246,240,230,.15)}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold) 46%,var(--terra) 66%,var(--terra-lt) 100%);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.6s var(--ease) .6s;box-shadow:0 0 18px rgba(211,164,81,.6)}
+.slide.active .tl-fill{transform:scaleX(1)}
+.tl-break{position:absolute;left:56%;top:80px;width:44px;margin-left:-22px;text-align:center;font-family:var(--serif);font-size:30px;color:rgba(246,240,230,.7);letter-spacing:2px;background:#13213a;border-radius:10px}
+.node{position:absolute;top:0;width:200px;margin-left:-100px;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .35s var(--ease)}
+.node .yr{font-family:var(--serif);font-size:56px;font-weight:800;line-height:1;margin-top:8px;color:#fff;transition:color .3s,transform .35s var(--ease)}
+.node .dot{margin-top:16px;width:34px;height:34px;border-radius:50%;background:var(--navy);border:4px solid var(--gold);position:relative;transition:transform .35s var(--ease),background .3s,box-shadow .3s;z-index:2}
+.node.iva .dot{border-color:var(--terra-lt)}
+.node .sg{margin-top:18px;font-size:17.5px;line-height:1.28;color:#EDE6D8;font-weight:600;max-width:190px}
+.node .tg{margin-top:8px;font-size:12.5px;letter-spacing:.2em;font-weight:800;padding:3px 12px;border-radius:12px;background:rgba(211,164,81,.25);color:var(--gold-lt)}
+.node.iva .tg{background:rgba(172,81,70,.4);color:#FFC9BF}
+.node:hover .yr{color:var(--gold-lt);transform:translateY(-4px) scale(1.08)}
+.node:hover .dot,.node[aria-pressed="true"] .dot{transform:scale(1.35);background:var(--gold);box-shadow:0 0 0 7px rgba(211,164,81,.25),0 0 26px rgba(211,164,81,.8)}
+.node.iva:hover .dot,.node.iva[aria-pressed="true"] .dot{background:var(--terra-lt);box-shadow:0 0 0 7px rgba(232,151,139,.25),0 0 26px rgba(232,151,139,.8)}
+.node[aria-pressed="true"] .yr{color:var(--gold-lt)}
+.node.pulse .dot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--gold-lt);animation:ring 1.8s ease-out infinite}
+.detail{position:absolute;left:1230px;top:204px;width:600px;height:232px;padding:20px 28px}
+.detail .when{font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--gold)}
+.detail h4{font-family:var(--serif);font-size:32px;line-height:1.1;margin:6px 0 10px}
+.detail p{font-size:21px;line-height:1.42;color:#EDE6D8}
+.detail.swap>div{animation:infoIn .5s var(--ease)}
+.duo{position:absolute;left:90px;top:452px;width:1740px;height:410px;display:grid;grid-template-columns:1fr 1fr;gap:30px;perspective:1400px}
+.mega{position:relative;border-radius:34px;padding:20px 28px 22px;display:grid;grid-template-columns:1fr 384px;gap:24px;overflow:hidden;border:1.5px solid var(--glass-b);box-shadow:0 40px 70px -26px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.18);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out,box-shadow .4s,border-color .4s;transform-style:preserve-3d;cursor:pointer;will-change:transform}
+.mega.isr{background:linear-gradient(145deg,rgba(211,164,81,.3),rgba(16,27,45,.7) 70%)}
+.mega.iva{background:linear-gradient(145deg,rgba(172,81,70,.5),rgba(16,27,45,.7) 70%)}
+.mega::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at var(--lx,30%) var(--ly,0%),rgba(255,255,255,.2),transparent 60%);pointer-events:none;opacity:.8}
+.mega[data-active="true"]{border-color:var(--gold-lt);box-shadow:0 40px 80px -26px rgba(0,0,0,.85),0 0 0 3px rgba(235,203,139,.25),0 0 50px rgba(211,164,81,.28)}
+.mega.iva[data-active="true"]{border-color:var(--terra-lt);box-shadow:0 40px 80px -26px rgba(0,0,0,.85),0 0 0 3px rgba(232,151,139,.28),0 0 50px rgba(172,81,70,.4)}
+.mega .ac{font-family:var(--serif);font-weight:800;font-size:98px;line-height:.95;letter-spacing:-.01em;background:linear-gradient(180deg,#fff 10%,var(--gold-lt) 60%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;transform:translateZ(40px)}
+.mega.iva .ac{background:linear-gradient(180deg,#fff 10%,#FFC9BF 60%,var(--terra-lt));-webkit-background-clip:text;background-clip:text}
+.mega .nm{font-size:23px;font-weight:700;margin-top:2px}
+.mega .rel{display:inline-block;margin:10px 0 10px;font-size:16px;font-weight:700;padding:6px 14px;border-radius:16px;background:rgba(246,240,230,.14);color:#fff}
+.mega .cp{font-size:18.5px;line-height:1.38;color:#F1EBDD}
+.mega .dts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.mega .dts span{font-family:var(--serif);font-size:19px;font-weight:700;padding:3px 12px;border-radius:12px;border:1px solid rgba(246,240,230,.4)}
+.simA .go{margin:14px auto 0}.simA .again{align-self:flex-end;margin-top:10px}
+.simA{border-radius:24px;background:rgba(11,19,34,.55);border:1px solid rgba(246,240,230,.18);padding:14px 18px;position:relative;overflow:hidden;display:flex;flex-direction:column;transform:translateZ(20px)}
+.simA .idle{margin:auto;text-align:center;font-size:19px;color:rgba(246,240,230,.8);line-height:1.4;padding:0 14px}
+.simA .idle svg{width:64px;height:64px;margin:0 auto 12px;opacity:.85}
+.simA .live{display:none;flex-direction:column;height:100%}
+.mega[data-active="true"] .simA .idle{display:none}
+.mega[data-active="true"] .simA .live{display:flex}
+.cap{font-size:17.5px;font-weight:700;color:var(--gold-lt);min-height:46px;line-height:1.26}
+.note{font-size:15.5px;line-height:1.35;color:rgba(246,240,230,.82);margin-top:auto}
+.note strong{color:var(--gold-lt)}
+/* ISR simulación */
+.isr-v{position:relative;flex:1;margin-top:4px}
+.gov{position:absolute;right:6px;top:4px;width:92px;text-align:center;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:filter .5s,transform .5s var(--ease)}
+.gov svg{width:68px;height:60px;margin:0 auto 2px}
+.gov.glow{filter:drop-shadow(0 0 18px rgba(235,203,139,.95));transform:scale(1.12)}
+.ibar{position:absolute;left:0;right:0;bottom:6px;height:58px;border-radius:14px;background:rgba(246,240,230,.1);border:1px solid rgba(246,240,230,.25);overflow:visible}
+.ibar .fillB{position:absolute;inset:0;border-radius:13px;background:linear-gradient(90deg,#8d6a28,var(--gold) 55%,var(--gold-lt));transform:scaleX(0);transform-origin:0 50%;transition:transform 1.1s var(--ease);display:flex;align-items:center;padding-left:14px;font-weight:800;color:#1b1304;font-size:17px;letter-spacing:.08em;white-space:nowrap}
+.ibar .lbl{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:800;color:#1b1304;font-size:16px;letter-spacing:.1em;z-index:2;opacity:0;transition:opacity .4s .6s}
+.isr-v.s1 .fillB{transform:scaleX(1)}
+.isr-v.s1 .lbl{opacity:1}
+.slice{position:absolute;right:0;top:0;bottom:0;width:26%;border-radius:12px;background:repeating-linear-gradient(135deg,var(--terra) 0 8px,#c8665a 8px 16px);border:2px dashed #fff;opacity:0;z-index:3;transition:transform .9s var(--ease),opacity .4s;color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;text-align:center;line-height:1.1;letter-spacing:.06em}
+.isr-v.s2 .slice{opacity:1;transform:translateY(-86px);animation:breathe 2.4s ease-in-out 1}
+@keyframes breathe{0%{width:26%}25%{width:42%}55%{width:18%}80%{width:34%}100%{width:26%}}
+.isr-v.s3 .slice{opacity:0;transform:translate(60px,-190px) scale(.3);transition:transform 1s var(--ease),opacity .9s .1s}
+.isr-v.s3 .slice{animation:none}
+.isr-v.s2 .slice,.isr-v.s3 .slice{opacity:1}
+.isr-v.s3 .slice{opacity:0}
+/* IVA simulación */
+.ticket{background:var(--ivory);color:var(--navy);border-radius:16px;padding:10px 16px 10px;font-size:16px;position:relative;box-shadow:0 14px 30px rgba(0,0,0,.4);flex:none}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:10px;background:radial-gradient(circle at 8px -1px,transparent 7px,var(--ivory) 8px) 0 0/16px 10px repeat-x}
+.t-head{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--terra)}
+.t-item{font-family:var(--serif);font-size:17px;font-weight:700;margin:2px 0 6px;border-bottom:1.5px dashed rgba(16,27,45,.35);padding-bottom:6px;line-height:1.2}
+.t-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .6s var(--ease)}
+.t-row.on{opacity:1;transform:none}
+.t-row b{font-family:var(--serif);font-size:24px}
+.t-row.iv b{color:var(--terra)}
+.t-row.total{border-top:2px solid var(--navy);margin-top:4px;padding-top:6px;font-weight:800}
+.t-row.total b{font-size:28px}
+.tbar{display:flex;height:16px;border-radius:8px;overflow:hidden;margin-top:6px;background:rgba(16,27,45,.1)}
+.tbar i{display:block;height:100%;width:0;transition:width 1s var(--ease)}
+.tbar .b1{background:var(--navy)}.tbar .b2{background:var(--terra)}
+.cta{position:absolute;left:90px;right:90px;top:872px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.cta p{font-size:19px;color:#EDE6D8}
+.cta p b{color:var(--gold-lt)}
+.pill.big{height:56px;padding:0 30px;font-size:20px;border-radius:28px}
+
+/* ---------- Modales ---------- */
+.modal{position:absolute;inset:0;z-index:100;display:grid;place-items:center;background:rgba(5,9,17,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility 0s linear .35s}
+.modal.open{opacity:1;visibility:visible;transition-delay:0s}
+.panel{width:1180px;max-height:960px;overflow:auto;background:var(--ivory);color:var(--navy);border-radius:34px;padding:38px 48px 40px;box-shadow:0 60px 120px rgba(0,0,0,.7);position:relative;transform:translateY(40px) scale(.94);transition:transform .5s var(--ease)}
+.modal.open .panel{transform:none}
+.panel h2{font-family:var(--serif);font-size:44px;line-height:1.05;margin-bottom:6px}
+.panel .sub{font-size:19px;color:#4b566b;margin-bottom:20px}
+.x{position:absolute;right:22px;top:20px;width:48px;height:48px;border-radius:50%;background:rgba(16,27,45,.08);display:grid;place-items:center;transition:all .25s var(--ease)}
+.x:hover{background:var(--terra);color:#fff;transform:rotate(90deg)}
+.x svg{width:22px;height:22px}
+.src{list-style:none;counter-reset:s;display:grid;gap:10px}
+.src li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:12px 16px;border-radius:16px;background:#fff;border:1px solid rgba(16,27,45,.1)}
+.src li::before{content:counter(s);font-family:var(--serif);font-size:26px;font-weight:800;color:var(--terra);line-height:1.1}
+.src b{display:block;font-size:19px;line-height:1.25}
+.src a{font-size:15px;color:#1a4d9b;word-break:break-all;text-decoration:underline;text-underline-offset:3px}
+.src a:hover{color:var(--terra)}
+.cred{margin-top:16px;font-size:16px;color:#4b566b;line-height:1.4}
+.qz-top{display:flex;align-items:center;gap:18px;margin-bottom:18px;padding-right:64px}
+.qz-dots{display:flex;gap:8px}
+.qz-dots i{width:14px;height:14px;border-radius:50%;background:rgba(16,27,45,.18);transition:background .3s,transform .3s}
+.qz-dots i.cur{background:var(--gold);transform:scale(1.3)}
+.qz-dots i.ok{background:var(--ok)}.qz-dots i.bad{background:var(--terra)}
+.qz-pts{margin-left:auto;font-family:var(--serif);font-size:30px;font-weight:800;color:var(--terra)}
+.qz-pts small{font-family:var(--sans);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#4b566b;margin-right:8px}
+.qz-q{font-family:var(--serif);font-size:40px;line-height:1.15;font-weight:700;margin:6px 0 24px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.opt{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:20px;background:#fff;border:2px solid rgba(16,27,45,.15);font-size:30px;font-family:var(--serif);font-weight:700;transition:all .3s var(--ease)}
+.opt i{font-style:normal;font-family:var(--sans);font-size:17px;font-weight:800;width:38px;height:38px;border-radius:50%;background:rgba(16,27,45,.1);display:grid;place-items:center;flex:none}
+.opt:hover:not(:disabled){border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 24px rgba(16,27,45,.15)}
+.opt:disabled{cursor:default}
+.opt.ok{background:#E3F4EA;border-color:var(--ok)}.opt.ok i{background:var(--ok);color:#06210f}
+.opt.bad{background:#FBE7E3;border-color:var(--terra);animation:shake .5s}.opt.bad i{background:var(--terra);color:#fff}
+.opt.dim{opacity:.5}
+.qz-fb{margin-top:20px;padding:18px 22px;border-radius:18px;font-size:21px;line-height:1.4;display:none;gap:16px;align-items:flex-start}
+.qz-fb.show{display:flex;animation:infoIn .5s var(--ease)}
+.qz-fb.ok{background:#E3F4EA}.qz-fb.bad{background:#FBE7E3}
+.qz-fb .ic{font-size:30px;font-weight:800;flex:none;line-height:1}
+.qz-fb.ok .ic{color:#1d7a46}.qz-fb.bad .ic{color:var(--terra)}
+.qz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.qz-nav .pill{background:var(--navy);color:#fff;border-color:var(--navy)}
+.qz-nav .pill.gold{background:linear-gradient(135deg,#EBCB8B,#D3A451);color:#1b1304}
+.qz-nav .ghostb{color:var(--navy);background:transparent;border:1px solid rgba(16,27,45,.3)}
+.qz-end{text-align:center;padding:10px 0 4px}
+.medal{width:170px;height:170px;margin:0 auto 10px}
+.medal .pop{animation:popc .8s var(--ease) both;transform-box:fill-box;transform-origin:center}
+.qz-end h3{font-family:var(--serif);font-size:46px;margin-bottom:6px}
+.qz-end .score{font-family:var(--serif);font-size:84px;font-weight:800;color:var(--terra);line-height:1}
+.qz-end p{font-size:21px;color:#33405a;margin:6px 0 4px}
+.qz-end ul{list-style:none;display:grid;gap:8px;text-align:left;max-width:760px;margin:16px auto 0}
+.qz-end li{padding:10px 16px;border-radius:12px;background:#fff;font-size:18px;display:flex;gap:12px;line-height:1.3}
+.qz-end li b{flex:none}
+.qz-end li.ok b{color:#1d7a46}.qz-end li.bad b{color:var(--terra)}
+#fx{position:absolute;inset:0;z-index:130;pointer-events:none;width:1920px;height:1080px}
+
+#rotate{position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:999;background:var(--ivory);color:var(--navy);padding:10px 16px;border-radius:14px;font:600 14px/1.3 var(--sans);box-shadow:0 10px 30px rgba(0,0,0,.5);display:none;gap:12px;align-items:center;max-width:92vw}
+#rotate.show{display:flex}
+#rotate button{background:var(--navy);color:#fff;border-radius:10px;padding:6px 10px;font-size:13px}
+
+/* ---------- Movimiento reducido ---------- */
+.rm *,.rm *::before,.rm *::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+.rm .pulse i::after,.rm .pulse-ring::after,.rm .node.pulse .dot::after{display:none}
+@media (prefers-reduced-motion:reduce){#stage{animation:none}}
+.rm #stage{animation:none}
+</style>
+</head>
+<body>
+<!-- Definiciones SVG compartidas -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8E3B0"/><stop offset=".5" stop-color="#D3A451"/><stop offset="1" stop-color="#946b25"/></linearGradient>
+    <linearGradient id="gStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF6EC"/><stop offset="1" stop-color="#CFC3AB"/></linearGradient>
+    <linearGradient id="gCol" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#CFC3AB"/><stop offset=".45" stop-color="#FBF6EC"/><stop offset="1" stop-color="#BDB095"/></linearGradient>
+    <radialGradient id="gSky1" cx=".55" cy="0" r="1"><stop offset="0" stop-color="#34508a"/><stop offset=".6" stop-color="#18284a"/><stop offset="1" stop-color="#0d1527"/></radialGradient>
+    <radialGradient id="gGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#EBCB8B" stop-opacity=".9"/><stop offset="1" stop-color="#EBCB8B" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gMeso" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2340"/><stop offset=".45" stop-color="#A5524A"/><stop offset=".8" stop-color="#E0A25A"/><stop offset="1" stop-color="#F0C57E"/></linearGradient>
+    <linearGradient id="gColo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1730"/><stop offset=".55" stop-color="#2f4b7d"/><stop offset="1" stop-color="#d4b27a"/></linearGradient>
+    <pattern id="kern" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="2.3" fill="#B97D12"/></pattern>
+    <pattern id="greca" width="40" height="26" patternUnits="userSpaceOnUse"><path d="M0 22 L10 6 L20 22 L30 6 L40 22" fill="none" stroke="#D3A451" stroke-opacity=".6" stroke-width="3"/></pattern>
+    <g id="coinG"><circle r="11" fill="url(#gGold)" stroke="#8a6425" stroke-width="1"/><circle r="7.4" fill="none" stroke="#fff6dc" stroke-opacity=".75" stroke-width="1.3"/><path d="M-2.6 -3.6h5.2M0 -3.6v7.4" stroke="#8a6425" stroke-width="1.5" stroke-linecap="round" fill="none"/></g>
+  </defs>
+</svg>
+
+<div id="viewport">
+<main id="stage" aria-label="Presentación: El derecho fiscal y la historia de los tributos en México">
+  <div id="bg"></div>
+
+  <header id="top">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="-12 -12 24 24" aria-hidden="true"><use href="#coinG"/></svg>
+      <span>Museo interactivo del tiempo fiscal de México</span>
+    </div>
+    <div class="tools">
+      <button class="pill" id="btnSrc" type="button" aria-haspopup="dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6"/></svg>Fuentes</button>
+      <button class="pill" id="btnRM" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Reducir animaciones</button>
+      <button class="pill" id="btnFS" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span id="fsLabel">Pantalla completa</span></button>
+    </div>
+  </header>
+
+  <div id="deck">
+
+<!-- ===================== DIAPOSITIVA 1 ===================== -->
+<section class="slide s1" id="slide1" data-title="¿Qué es?" aria-label="Diapositiva 1 de 3: ¿Qué es el derecho fiscal?">
+  <div class="sweep"></div>
+  <div class="colL">
+    <p class="kicker rv"><b>01</b> La regla del juego</p>
+    <h1 class="hero" id="t1" data-lines="¿Qué es el|derecho|fiscal?"></h1>
+    <article class="card def rv">
+      <h3>¿Qué es?</h3>
+      <p>Es la rama del derecho público que regula las contribuciones, las obligaciones de los contribuyentes y la relación entre las autoridades fiscales y las personas que deben pagar impuestos.</p>
+    </article>
+    <article class="card def rv">
+      <h3>¿Para qué existe?</h3>
+      <p>Para establecer las reglas con las que se obtienen recursos públicos conforme a la ley, y los derechos y obligaciones en materia tributaria. Esos recursos contribuyen a financiar servicios públicos, infraestructura y otras necesidades del Estado.</p>
+    </article>
+    <div class="row2">
+      <aside class="card cite rv" aria-label="Fundamento constitucional">
+        <div class="seal">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#D3A451" stroke-width="2.5"/><circle cx="24" cy="24" r="15" fill="none" stroke="#D3A451" stroke-width="1.2" stroke-dasharray="3 3"/><path d="M24 12l3.2 8.2 8.6.5-6.7 5.4 2.3 8.4L24 29.7 16.6 34.5l2.3-8.4-6.7-5.4 8.6-.5z" fill="#D3A451"/></svg>
+          <span class="lab">Fundamento constitucional</span>
+        </div>
+        <div class="t">Constitución mexicana, artículo 31, fracción IV</div>
+        <div class="s">Pulsa «Impuestos» para ver qué establece.</div>
+      </aside>
+      <div class="rv" style="--d:9">
+        <button class="flip" id="flip" type="button" aria-pressed="false" aria-label="Tarjeta: No confundir. Pulsa para voltearla.">
+          <span class="flip-in">
+            <span class="face front">
+              <span class="lab">No confundir</span>
+              <span class="big">Derecho fiscal <i>≠</i> política de gasto público</span>
+              <span class="tip">Pulsa para voltear la tarjeta ↻</span>
+            </span>
+            <span class="face back">
+              <span class="lab">La diferencia</span>
+              <p>El derecho fiscal establece reglas jurídicas sobre contribuciones; la política de gasto público decide cómo asignar los recursos.</p>
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="colR">
+    <div class="scene1 rv" id="scene1">
+      <svg viewBox="0 0 910 380" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustración: contribuyentes envían monedas hacia una caja de recursos públicos, frente a un edificio institucional.">
+        <rect width="910" height="380" fill="url(#gSky1)"/>
+        <g fill="#fff" opacity=".55"><circle cx="60" cy="40" r="1.6"/><circle cx="170" cy="70" r="1.2"/><circle cx="260" cy="28" r="1.8"/><circle cx="650" cy="46" r="1.4"/><circle cx="560" cy="80" r="1.1"/><circle cx="860" cy="62" r="1.7"/><circle cx="780" cy="30" r="1.2"/></g>
+        <ellipse cx="470" cy="330" rx="420" ry="40" fill="url(#gGlow)" opacity=".35"/>
+        <rect y="330" width="910" height="50" fill="#0b1322"/>
+        <path d="M0 331H910" stroke="#D3A451" stroke-opacity=".5" stroke-width="2"/>
+        <!-- guías de trayectoria -->
+        <g data-part="tax" fill="none" stroke="#EBCB8B" stroke-opacity=".28" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round">
+          <path id="pth0" d="M112 296 C 250 110, 640 80, 792 262"/>
+          <path id="pth1" d="M182 296 C 300 140, 650 105, 792 262"/>
+          <path id="pth2" d="M252 296 C 360 170, 670 130, 792 262"/>
+        </g>
+        <!-- edificio institucional -->
+        <g data-part="spend" transform="translate(335 0)">
+          <polygon points="-6,172 135,96 276,172" fill="url(#gStone)"/>
+          <polygon points="24,164 135,106 246,164" fill="#E6DAC3"/>
+          <circle cx="135" cy="142" r="14" fill="url(#gGold)"/>
+          <path d="M135 132v20M125 142h20" stroke="#6d4f17" stroke-width="2" stroke-linecap="round"/>
+          <rect x="-12" y="172" width="294" height="24" fill="url(#gStone)"/>
+          <text x="135" y="190" text-anchor="middle" font-size="14" letter-spacing="5" font-weight="700" fill="#101B2D" font-family="Georgia,serif">AUTORIDAD FISCAL</text>
+          <rect x="0" y="196" width="270" height="104" fill="#2a1f12" opacity=".75"/>
+          <rect x="0" y="196" width="270" height="104" fill="url(#gGlow)" opacity=".35"/>
+          <g fill="url(#gCol)"><rect x="6" y="196" width="26" height="104"/><rect x="56" y="196" width="26" height="104"/><rect x="106" y="196" width="26" height="104"/><rect x="138" y="196" width="26" height="104"/><rect x="188" y="196" width="26" height="104"/><rect x="238" y="196" width="26" height="104"/></g>
+          <g stroke="#9a8e75" stroke-width="1" opacity=".6"><path d="M13 196v104M19 196v104M25 196v104M63 196v104M69 196v104M75 196v104M113 196v104M119 196v104M145 196v104M151 196v104M157 196v104M195 196v104M201 196v104M207 196v104M245 196v104M251 196v104M257 196v104"/></g>
+          <rect x="-18" y="300" width="306" height="12" fill="url(#gStone)"/><rect x="-32" y="312" width="334" height="12" fill="#D9CFBC"/><rect x="-46" y="324" width="362" height="8" fill="#BDB095"/>
+        </g>
+        <!-- contribuyentes -->
+        <g data-part="contrib">
+          <g transform="translate(90 0)"><circle cx="0" cy="262" r="14" fill="#F6F0E6"/><path d="M-20 332v-26a20 22 0 0 1 40 0v26z" fill="#F6F0E6"/><path d="M-20 332v-26a20 22 0 0 1 40 0" fill="none" stroke="#D3A451" stroke-width="2" opacity=".6"/></g>
+          <g transform="translate(160 0)"><circle cx="0" cy="262" r="14" fill="#E8978B"/><path d="M-20 332v-26a20 22 0 0 1 40 0v26z" fill="#AC5146"/></g>
+          <g transform="translate(230 0)"><circle cx="0" cy="262" r="14" fill="#EBCB8B"/><path d="M-20 332v-26a20 22 0 0 1 40 0v26z" fill="#D3A451"/></g>
+        </g>
+        <!-- caja de recursos públicos -->
+        <g data-part="spend">
+          <ellipse id="boxGlow" cx="797" cy="285" rx="110" ry="70" fill="url(#gGlow)" opacity="0"/>
+          <g transform="translate(735 0)">
+            <rect x="0" y="282" width="124" height="50" rx="8" fill="#8a6425"/>
+            <rect x="0" y="282" width="124" height="14" rx="6" fill="url(#gGold)"/>
+            <rect x="48" y="292" width="28" height="22" rx="4" fill="url(#gGold)" stroke="#5c4112"/>
+            <circle cx="62" cy="301" r="3.4" fill="#5c4112"/>
+            <path d="M-4 276h132l-10-14H6z" fill="url(#gGold)"/>
+            <rect x="40" y="262" width="44" height="8" rx="3" fill="#2a1d07"/>
+            <text x="62" y="357" text-anchor="middle" font-size="16" font-weight="700" fill="#F6F0E6" font-family="Segoe UI,Arial,sans-serif">Caja de recursos públicos</text>
+          </g>
+        </g>
+        <g id="coinsLayer" data-part="tax"></g>
+      </svg>
+      <button class="hs" type="button" data-k="contrib" aria-pressed="false" style="left:3.2%;top:6%"><i>1</i>Contribuyentes</button>
+      <button class="hs pulse" type="button" data-k="tax" aria-pressed="false" style="left:37.5%;top:6%"><i>2</i>Impuestos</button>
+      <button class="hs" type="button" data-k="spend" aria-pressed="false" style="left:66%;top:6%"><i>3</i>Gasto público</button>
+      <span class="hint" id="hint1">Pulsa los tres elementos para explorar</span>
+    </div>
+
+    <div class="card info rv" id="info" aria-live="polite">
+      <div class="info-in">
+        <div class="info-ic" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="none" stroke="#D3A451" stroke-width="3" stroke-dasharray="5 7"/><use href="#coinG" transform="translate(50 50) scale(2.2)"/></svg>
+        </div>
+        <div><h4>Explora la escena</h4><p>Las monedas viajan de los contribuyentes a la caja de recursos públicos. Pulsa «Contribuyentes», «Impuestos» o «Gasto público» para ver qué papel juega cada uno.</p></div>
+      </div>
+    </div>
+
+    <div class="card sim rv" id="sim1">
+      <div class="sim-h">
+        <div>
+          <h3>¿A dónde van los impuestos?</h3>
+          <p>Simulación simbólica: reparte las 6 monedas. No muestra porcentajes oficiales del presupuesto.</p>
+        </div>
+        <button class="pill sm" id="simReset" type="button">↺ Reiniciar</button>
+      </div>
+      <div class="sim-b">
+        <div class="purse"><span class="lbl">Recursos recaudados</span><div class="coins" id="coins"></div></div>
+        <div class="dests">
+          <div class="dest dropzone" role="button" tabindex="0" data-d="edu" aria-label="Educación: enviar una moneda">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 12c7-3.5 14-3 20 1v27c-6-4-13-4.5-20-1z" fill="#EBCB8B"/><path d="M44 12c-7-3.5-14-3-20 1v27c6-4 13-4.5 20-1z" fill="#F6F0E6"/></svg>
+            <b>Educación</b><div class="stack"></div><em class="cnt">0</em>
+          </div>
+          <div class="dest dropzone" role="button" tabindex="0" data-d="sal" aria-label="Salud: enviar una moneda">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="17" y="5" width="14" height="38" rx="4" fill="#E8978B"/><rect x="5" y="17" width="38" height="14" rx="4" fill="#F6F0E6"/></svg>
+            <b>Salud</b><div class="stack"></div><em class="cnt">0</em>
+          </div>
+          <div class="dest dropzone" role="button" tabindex="0" data-d="inf" aria-label="Infraestructura: enviar una moneda">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M3 34h42" stroke="#F6F0E6" stroke-width="4" stroke-linecap="round"/><path d="M8 34V16M40 34V16M8 16Q24 -2 40 16" fill="none" stroke="#EBCB8B" stroke-width="4" stroke-linecap="round"/><path d="M16 11v23M24 8v26M32 11v23" stroke="#EBCB8B" stroke-width="2"/><path d="M3 42h42" stroke="#D3A451" stroke-width="3" stroke-dasharray="6 5"/></svg>
+            <b>Infraestructura</b><div class="stack"></div><em class="cnt">0</em>
+          </div>
+        </div>
+      </div>
+      <p class="sim-msg" id="simMsg" aria-live="polite">Arrastra una moneda hacia un destino, o pulsa el destino para enviar una.</p>
+    </div>
+  </div>
+
+  <div class="say rv"><span>Para exponer</span><p>«El derecho fiscal establece las reglas para recaudar contribuciones y permite que el Estado obtenga recursos para cubrir necesidades públicas».</p></div>
+</section>
+
+<!-- ===================== DIAPOSITIVA 2 ===================== -->
+<section class="slide s2" id="slide2" data-title="Tributos" aria-label="Diapositiva 2 de 3: De los tributos prehispánicos a la Colonia">
+  <div class="sweep"></div>
+  <div class="hd">
+    <p class="kicker rv"><b>02</b> Del tributo al impuesto</p>
+    <h2 class="title rv">De los tributos <em>prehispánicos</em> a la <em class="t">Colonia</em></h2>
+  </div>
+
+  <div class="s2L">
+    <div class="eraScene rv" id="eraScene">
+      <!-- MESOAMÉRICA -->
+      <div class="era meso">
+        <svg viewBox="0 0 1040 372" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="1040" height="372" fill="url(#gMeso)"/>
+          <circle cx="800" cy="130" r="170" fill="url(#gGlow)" opacity=".7"/><circle cx="800" cy="130" r="54" fill="#FBE3AA"/>
+          <path d="M0 300 Q120 230 260 290 T520 280 T780 290 T1040 270V372H0z" fill="#3a2038" opacity=".8"/>
+          <g fill="#2a1830" stroke="#D3A451" stroke-opacity=".4" stroke-width="1.5">
+            <polygon points="60,310 330,310 306,280 84,280"/><polygon points="84,280 306,280 286,252 104,252"/><polygon points="104,252 286,252 270,228 120,228"/><rect x="146" y="204" width="98" height="24"/><polygon points="138,204 252,204 238,190 152,190"/>
+            <polygon points="330,312 770,312 730,274 370,274"/><polygon points="370,274 730,274 696,238 404,238"/><polygon points="404,238 696,238 666,204 434,204"/><polygon points="434,204 666,204 640,174 460,174"/><rect x="486" y="138" width="128" height="36"/><polygon points="476,138 624,138 602,118 498,118"/>
+          </g>
+          <polygon points="522,312 578,312 566,174 534,174" fill="#4b2e4a"/>
+          <g stroke="#D3A451" stroke-opacity=".35"><path d="M530 300h40M532 280h36M534 262h32M536 244h28M538 226h24M540 208h20M542 190h16"/></g>
+          <rect y="312" width="1040" height="60" fill="#1b1022"/>
+          <rect y="318" width="1040" height="26" fill="url(#greca)"/>
+          <g transform="translate(700 20)" opacity=".92"><rect x="0" y="0" width="190" height="86" rx="6" fill="#F0DFB8" stroke="#8a6425" stroke-width="3"/><g fill="none" stroke="#AC5146" stroke-width="3" stroke-linecap="round"><circle cx="34" cy="30" r="14"/><path d="M62 22h30M62 38h22"/><path d="M110 18l24 10-24 10z"/><path d="M148 20q10 10 0 22"/></g><path d="M12 66h166" stroke="#101B2D" stroke-width="3" stroke-dasharray="4 5"/></g>
+        </svg>
+        <span class="tag">Mesoamérica</span>
+        <button class="obj pulse" type="button" data-k="maiz" aria-pressed="false" style="left:13%;top:52%"><span class="ic pulse-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 60C14 52 9 30 17 17c5 11 11 24 15 43z" fill="#5f9142"/><path d="M32 60c18-8 23-30 15-43-5 11-11 24-15 43z" fill="#7bb356"/><ellipse cx="32" cy="29" rx="11" ry="24" fill="#EBB93E"/><ellipse cx="32" cy="29" rx="11" ry="24" fill="url(#kern)"/></svg></span><span class="n">Maíz</span></button>
+        <button class="obj" type="button" data-k="cacao" aria-pressed="false" style="left:41%;top:52%"><span class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5C52 11 58 42 32 59 6 42 12 11 32 5z" fill="#B7573F"/><path d="M32 5c-8 18-8 36 0 54M32 5C22 20 20 42 32 59M32 5c10 15 12 37 0 54" fill="none" stroke="#7d3524" stroke-width="2"/><path d="M20 20q4-8 10-10" stroke="#e9a28f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/><rect x="29" y="1" width="6" height="8" rx="2" fill="#5c3b1e"/></svg></span><span class="n">Cacao</span></button>
+        <button class="obj" type="button" data-k="textil" aria-pressed="false" style="left:70%;top:52%"><span class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="40" width="48" height="15" rx="3" fill="#AC5146"/><rect x="11" y="26" width="44" height="15" rx="3" fill="#D3A451"/><rect x="6" y="12" width="48" height="15" rx="3" fill="#F6F0E6"/><g fill="none" stroke="#101B2D" stroke-width="2" stroke-linecap="round" opacity=".7"><path d="M10 19l6-4 6 4 6-4 6 4 6-4 6 4"/><path d="M14 33l6-4 6 4 6-4 6 4 6-4"/><path d="M12 47l6-4 6 4 6-4 6 4 6-4 6 4"/></g></svg></span><span class="n">Textiles</span></button>
+      </div>
+      <!-- NUEVA ESPAÑA -->
+      <div class="era colo">
+        <svg viewBox="0 0 1040 372" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="1040" height="372" fill="url(#gColo)"/>
+          <circle cx="170" cy="86" r="38" fill="#F6F0E6" opacity=".92"/><circle cx="184" cy="78" r="34" fill="#16264a" opacity=".55"/>
+          <g fill="#fff" opacity=".6"><circle cx="320" cy="50" r="1.6"/><circle cx="420" cy="90" r="1.3"/><circle cx="520" cy="38" r="1.8"/><circle cx="60" cy="150" r="1.3"/></g>
+          <!-- iglesia -->
+          <g transform="translate(700 0)">
+            <rect x="40" y="112" width="44" height="200" fill="#DDD0B4"/><rect x="236" y="112" width="44" height="200" fill="#DDD0B4"/>
+            <path d="M40 112a22 22 0 0 1 44 0z" fill="#C3B08A"/><path d="M236 112a22 22 0 0 1 44 0z" fill="#C3B08A"/>
+            <path d="M62 78v-18M54 68h16M258 78v-18M250 68h16" stroke="#D3A451" stroke-width="3"/>
+            <rect x="92" y="136" width="136" height="176" fill="#EDE2C9"/><polygon points="86,136 160,94 234,136" fill="#E3D5B4"/>
+            <path d="M160 94V70M152 80h16" stroke="#D3A451" stroke-width="3.4"/>
+            <circle cx="160" cy="154" r="15" fill="#2a3a5c" stroke="#D3A451" stroke-width="3"/>
+            <path d="M130 312V230a30 36 0 0 1 60 0v82z" fill="#3a2a1a"/><path d="M130 312V230a30 36 0 0 1 60 0" fill="none" stroke="#D3A451" stroke-width="3"/>
+            <rect x="48" y="150" width="28" height="36" rx="14" fill="#2a3a5c"/><rect x="244" y="150" width="28" height="36" rx="14" fill="#2a3a5c"/>
+          </g>
+          <!-- arcada Real Hacienda -->
+          <rect x="0" y="196" width="700" height="120" fill="#D8C7A2"/><rect x="0" y="186" width="700" height="14" fill="#BFA97E"/>
+          <g fill="#2b2216"><path d="M20 316v-60a30 36 0 0 1 60 0v60z"/><path d="M110 316v-60a30 36 0 0 1 60 0v60z"/><path d="M200 316v-60a30 36 0 0 1 60 0v60z"/><path d="M290 316v-60a30 36 0 0 1 60 0v60z"/><path d="M380 316v-60a30 36 0 0 1 60 0v60z"/><path d="M470 316v-60a30 36 0 0 1 60 0v60z"/><path d="M560 316v-60a30 36 0 0 1 60 0v60z"/></g>
+          <g transform="translate(60 122)"><path d="M0 0h400l-16 26 16 26H0l16-26z" fill="#AC5146" stroke="#EBCB8B" stroke-width="3"/><text x="200" y="35" text-anchor="middle" font-size="26" letter-spacing="7" font-weight="700" fill="#F6F0E6" font-family="Georgia,serif">REAL HACIENDA</text></g>
+          <rect y="316" width="1040" height="56" fill="#141d33"/><path d="M0 330h1040M0 346h1040" stroke="#D3A451" stroke-opacity=".25"/>
+        </svg>
+        <span class="tag">Nueva España</span>
+        <button class="obj" type="button" data-k="monedas" aria-pressed="false" style="left:27%;top:52%"><span class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="46" rx="22" ry="9" fill="#946b25"/><rect x="10" y="38" width="44" height="8" fill="#B88A36"/><ellipse cx="32" cy="38" rx="22" ry="9" fill="url(#gGold)"/><ellipse cx="32" cy="28" rx="22" ry="9" fill="#B88A36"/><ellipse cx="32" cy="20" rx="22" ry="9" fill="url(#gGold)"/><ellipse cx="32" cy="20" rx="14" ry="5" fill="none" stroke="#fff6dc" stroke-opacity=".7" stroke-width="1.6"/></svg></span><span class="n">Monedas</span></button>
+        <button class="obj" type="button" data-k="mineral" aria-pressed="false" style="left:57%;top:52%"><span class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><polygon points="32,5 54,20 50,50 22,58 8,30" fill="#D3A451"/><polygon points="32,5 54,20 32,30" fill="#F8E3B0"/><polygon points="32,30 54,20 50,50" fill="#B88A36"/><polygon points="32,30 50,50 22,58" fill="#946b25"/><polygon points="8,30 32,5 32,30" fill="#EBCB8B"/><polygon points="8,30 32,30 22,58" fill="#C99A44"/><path d="M40 14l3 5" stroke="#fff" stroke-width="2" opacity=".8"/></svg></span><span class="n">Mineral precioso</span></button>
+        <button class="obj" type="button" data-k="pergamino" aria-pressed="false" style="left:87%;top:52%"><span class="ic"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="10" width="40" height="44" rx="3" fill="#F0E2BE"/><rect x="8" y="6" width="48" height="8" rx="4" fill="#C9A867"/><rect x="8" y="50" width="48" height="8" rx="4" fill="#C9A867"/><g stroke="#8a6425" stroke-width="2.4" stroke-linecap="round"><path d="M20 22h24M20 29h24M20 36h14"/></g><circle cx="42" cy="44" r="7" fill="#AC5146"/><circle cx="42" cy="44" r="3.4" fill="none" stroke="#F6C9C0" stroke-width="1.5"/></svg></span><span class="n">Pergamino</span></button>
+      </div>
+      <div class="divider" aria-hidden="true"><span><svg viewBox="0 0 24 24" fill="none" stroke="#EBCB8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 21h12M7 3c0 6 5 6 5 9s-5 3-5 9M17 3c0 6-5 6-5 9s5 3 5 9"/></svg></span></div>
+      <div class="eraCtl">
+        <button type="button" class="gm" id="goMeso">◂ Mesoamérica</button>
+        <input type="range" id="eraRange" min="0" max="100" value="50" step="1" aria-label="Viajar en el tiempo: de Mesoamérica a Nueva España" aria-valuetext="Mitad Mesoamérica, mitad Nueva España">
+        <button type="button" class="gc" id="goColo">Nueva España ▸</button>
+      </div>
+      <span class="hint" id="hint2">Desliza el control y toca los objetos</span>
+    </div>
+
+    <div class="card game rv" id="game">
+      <div class="game-h">
+        <h3>Minijuego · Identifica el sistema o tributo</h3>
+        <div class="meta"><span id="gScore">Aciertos 0/4</span><button class="pill sm" id="gReset" type="button">↺ Reiniciar</button></div>
+      </div>
+      <div class="tray" id="tray"><span class="lbl">Arrastra una tarjeta (o pulsa y elige una pista):</span></div>
+      <div class="slots" id="slots"></div>
+      <p class="fb" id="gFb" aria-live="polite">Lee cada pista y coloca la tarjeta que le corresponde.</p>
+    </div>
+  </div>
+
+  <div class="s2R">
+    <div class="card eraCard rv" id="eraCard" aria-live="polite">
+      <span class="lab" id="eraLab">Diferencia clave</span>
+      <h4 id="eraH">Mesoamérica y Nueva España</h4>
+      <p id="eraP">Desliza el control: de los códices, textiles y alimentos a la arquitectura colonial, las monedas y la Real Hacienda.</p>
+    </div>
+    <div class="card ficha rv" id="ficha" aria-live="polite">
+      <div class="ficha-in">
+        <div class="fi" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="none" stroke="#D3A451" stroke-width="3" stroke-dasharray="4 6"/><path d="M32 20v24M20 32h24" stroke="#EBCB8B" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <div><span class="era-t">Ficha histórica</span><h4>Toca un objeto</h4><p>Cada objeto de la escena tiene una relación con los tributos. Pulsa maíz, cacao, textiles, monedas, mineral o pergamino.</p></div>
+      </div>
+    </div>
+    <div class="card qr rv" id="qr">
+      <h3>Quinto Real · una de cada cinco</h3>
+      <button class="pill sm gold" id="qrBtn" type="button">Separar el quinto</button>
+      <div class="qr-stage" id="qrStage" aria-hidden="true">
+        <span class="qc four" style="left:20px">1</span><span class="qc four" style="left:112px">2</span><span class="qc four" style="left:204px">3</span><span class="qc four" style="left:296px">4</span><span class="qc five" style="left:388px">5</span>
+        <span class="br"></span><span class="brl">4 de 5 = 80%</span>
+        <div class="qlab"><div class="pct" id="qrPct">0%</div><div class="t">1 de 5 · Quinto</div></div>
+      </div>
+      <p class="note"><strong>Referencia histórica:</strong> originalmente equivalía a una quinta parte (20%) en los casos y periodos en que correspondía. Cambió con el tiempo; no fue una tasa fija en todos los siglos.</p>
+    </div>
+  </div>
+
+  <div class="say rv"><span>Para exponer</span><p>«Los tributos ya existían antes de la llegada de los españoles. Durante la Colonia se reorganizó la recaudación y aparecieron impuestos como la alcabala y el Quinto Real».</p></div>
+</section>
+
+<!-- ===================== DIAPOSITIVA 3 ===================== -->
+<section class="slide s3" id="slide3" data-title="ISR e IVA" aria-label="Diapositiva 3 de 3: ¿Cuándo nacieron el ISR y el IVA?">
+  <div class="sweep"></div>
+  <div class="hd">
+    <p class="kicker rv"><b>03</b> Dos impuestos, dos lógicas</p>
+    <h2 class="title rv">¿Cuándo nacieron el <em>ISR</em> y el <em class="t">IVA</em>?</h2>
+  </div>
+
+  <div class="tlWrap rv" id="tlWrap">
+    <div class="tl">
+      <div class="tl-line"><div class="tl-fill"></div></div>
+      <div class="tl-break" aria-hidden="true">//</div>
+      <button class="node isr pulse" type="button" data-y="1921" style="left:6%" aria-pressed="false"><span class="yr" data-year="1921">1921</span><span class="dot"></span><span class="sg">Ley del Centenario</span><span class="tg">ISR</span></button>
+      <button class="node isr" type="button" data-y="1924" style="left:24%" aria-pressed="false"><span class="yr" data-year="1924">1924</span><span class="dot"></span><span class="sg">Disposiciones permanentes</span><span class="tg">ISR</span></button>
+      <button class="node isr" type="button" data-y="1925" style="left:42%" aria-pressed="false"><span class="yr" data-year="1925">1925</span><span class="dot"></span><span class="sg">Primera Ley del ISR</span><span class="tg">ISR</span></button>
+      <button class="node iva" type="button" data-y="1978" style="left:70%" aria-pressed="false"><span class="yr" data-year="1978">1978</span><span class="dot"></span><span class="sg">Se publica la Ley del IVA</span><span class="tg">IVA</span></button>
+      <button class="node iva" type="button" data-y="1980" style="left:92%" aria-pressed="false"><span class="yr" data-year="1980">1980</span><span class="dot"></span><span class="sg">Entra en vigor el IVA</span><span class="tg">IVA</span></button>
+    </div>
+  </div>
+  <div class="card detail rv" id="tlDetail" aria-live="polite">
+    <div><span class="when">Línea del tiempo</span><h4>Pulsa un año</h4><p>Cada hito de la línea del tiempo abre una explicación corta. Empieza por 1921 y avanza hacia 1980.</p></div>
+  </div>
+
+  <div class="duo rv" id="duo">
+    <article class="mega isr" id="cardISR" data-k="isr" data-active="false">
+      <div>
+        <div class="ac">ISR</div>
+        <div class="nm">Impuesto sobre la Renta</div>
+        <span class="rel">Se relaciona con: ingresos y rentas gravables</span>
+        <p class="cp">Grava ingresos de personas físicas y morales de acuerdo con las reglas de la legislación aplicable.</p>
+        <div class="dts"><span>1921</span><span>1924</span><span>1925</span></div>
+      </div>
+      <div class="simA" id="simISR">
+        <div class="idle"><svg viewBox="0 0 48 48" fill="none" stroke="#EBCB8B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19" stroke-dasharray="4 5"/><path d="M19 15l14 9-14 9z" fill="#EBCB8B"/></svg>Pulsa la tarjeta para ver cómo una parte simbólica de un ingreso se convierte en impuesto.<button class="pill gold go" type="button">▶ Activar simulación ISR</button></div>
+        <div class="live">
+          <div class="cap" id="isrCap">…</div>
+          <div class="isr-v" id="isrV">
+            <div class="gov" id="isrGov"><svg viewBox="0 0 68 60" aria-hidden="true"><polygon points="2,22 34,4 66,22" fill="#F6F0E6"/><rect x="6" y="24" width="56" height="6" fill="#D9CFBC"/><g fill="#F6F0E6"><rect x="10" y="32" width="8" height="20"/><rect x="24" y="32" width="8" height="20"/><rect x="38" y="32" width="8" height="20"/><rect x="52" y="32" width="8" height="20"/></g><rect x="2" y="53" width="64" height="5" fill="#D9CFBC"/></svg>Estado</div>
+            <div class="ibar"><span class="lbl">INGRESO</span><span class="fillB"></span><span class="slice">PORCIÓN<br>SIMBÓLICA</span></div>
+          </div>
+          <p class="note"><strong>La porción es ilustrativa.</strong> No hay una tasa única: depende de las reglas de la legislación aplicable.</p>
+          <button class="pill sm again go" type="button">↺ Repetir</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="mega iva" id="cardIVA" data-k="iva" data-active="false">
+      <div>
+        <div class="ac">IVA</div>
+        <div class="nm">Impuesto al Valor Agregado</div>
+        <span class="rel">Se relaciona con: operaciones de consumo y actividades gravadas por ley</span>
+        <p class="cp">Impuesto indirecto sobre determinadas operaciones: venta de bienes, servicios independientes y otras actividades previstas en la ley.</p>
+        <div class="dts"><span>1978</span><span>1980</span></div>
+      </div>
+      <div class="simA" id="simIVA">
+        <div class="idle"><svg viewBox="0 0 48 48" fill="none" stroke="#FFC9BF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="19" stroke-dasharray="4 5"/><path d="M19 15l14 9-14 9z" fill="#FFC9BF"/></svg>Pulsa la tarjeta para ver una compra con IVA, paso a paso.<button class="pill gold go" type="button">▶ Activar simulación IVA</button></div>
+        <div class="live">
+          <div class="cap" id="ivaCap">…</div>
+          <div class="ticket" id="ticket">
+            <div class="t-head">Ejemplo didáctico</div>
+            <div class="t-item">Artículo hipotético gravado a la tasa del 16%</div>
+            <div class="t-row" data-r="1"><span>Precio antes de IVA</span><b data-n="100">$0</b></div>
+            <div class="t-row iv" data-r="2"><span>IVA (16%)</span><b data-n="16">$0</b></div>
+            <div class="t-row total" data-r="3"><span>Total pagado</span><b data-n="116">$0</b></div>
+            <div class="tbar"><i class="b1"></i><i class="b2"></i></div>
+          </div>
+          <p class="note" style="margin-top:14px"><strong>Es solo un ejemplo.</strong> No todas las operaciones tienen la misma tasa o tratamiento fiscal.</p>
+          <button class="pill sm again go" type="button">↺ Repetir</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="cta rv">
+    <p><b>ISR</b>: ingresos y rentas gravables · <b>IVA</b>: operaciones de consumo y actividades gravadas por ley.</p>
+    <button class="pill gold big" type="button" id="btnQuiz">★ Desafío: ¿ISR o IVA?</button>
+  </div>
+
+  <div class="say rv"><span>Para exponer</span><p>«El ISR tiene antecedentes desde 1921 y su primera ley con ese nombre apareció en 1925. El IVA fue publicado en 1978 y comenzó a aplicarse en 1980».</p></div>
+</section>
+
+  </div><!-- /deck -->
+
+  <footer id="bot">
+    <div class="help"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> cerrar ventanas</div>
+    <nav class="navc" aria-label="Navegación de la presentación">
+      <button class="arrow" id="btnPrev" type="button" aria-label="Diapositiva anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="steps" id="steps">
+        <button class="step" type="button" data-go="0"><b>01</b>¿Qué es?</button>
+        <button class="step" type="button" data-go="1"><b>02</b>Tributos</button>
+        <button class="step" type="button" data-go="2"><b>03</b>ISR e IVA</button>
+      </div>
+      <button class="arrow" id="btnNext" type="button" aria-label="Diapositiva siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </nav>
+    <div class="counter" aria-live="polite"><span class="cur" id="cCur">01</span><span class="tot">/ 03</span></div>
+  </footer>
+  <div id="prog" role="progressbar" aria-label="Progreso de la presentación" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1"><i id="progFill"></i></div>
+
+  <div id="ghostLayer"></div>
+
+  <!-- Modal: Fuentes -->
+  <div class="modal" id="mSrc" role="dialog" aria-modal="true" aria-labelledby="srcT" aria-hidden="true">
+    <div class="panel">
+      <button class="x" type="button" data-close aria-label="Cerrar ventana"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      <h2 id="srcT">Fuentes verificadas y créditos</h2>
+      <p class="sub">Los enlaces se abren en una pestaña nueva y requieren conexión a internet; la presentación funciona sin conexión.</p>
+      <ol class="src">
+        <li><div><b>Constitución Política de los Estados Unidos Mexicanos, artículo 31, fracción IV.</b><a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf" target="_blank" rel="noopener noreferrer">https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf</a></div></li>
+        <li><div><b>Secretaría de Hacienda y Crédito Público, «Antecedentes históricos de la SHCP».</b><a href="https://www.gob.mx/cms/uploads/attachment/file/28395/antecedentes_historicos_shcp.pdf" target="_blank" rel="noopener noreferrer">https://www.gob.mx/cms/uploads/attachment/file/28395/antecedentes_historicos_shcp.pdf</a></div></li>
+        <li><div><b>Cámara de Diputados, Ley del Impuesto al Valor Agregado, publicación original de 29 de diciembre de 1978.</b><a href="https://www.diputados.gob.mx/LeyesBiblio/ref/liva/LIVA_orig_29dic78_ima.pdf" target="_blank" rel="noopener noreferrer">https://www.diputados.gob.mx/LeyesBiblio/ref/liva/LIVA_orig_29dic78_ima.pdf</a></div></li>
+        <li><div><b>Universidad Nacional Autónoma de México, «El sistema tributario del Imperio Español».</b><a href="https://uapa.bunam.unam.mx/u/sociales/imperio_espanol_tributario/" target="_blank" rel="noopener noreferrer">https://uapa.bunam.unam.mx/u/sociales/imperio_espanol_tributario/</a></div></li>
+        <li><div><b>UNAM, Colegio de Ciencias y Humanidades, «Impuestos novohispanos».</b><a href="https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad3/economianovohispana/impuestos" target="_blank" rel="noopener noreferrer">https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad3/economianovohispana/impuestos</a></div></li>
+        <li><div><b>Suprema Corte de Justicia de la Nación, «Nacimiento y evolución del impuesto sobre la renta en México».</b><a href="https://www.supremacorte.gob.mx/node/96557" target="_blank" rel="noopener noreferrer">https://www.supremacorte.gob.mx/node/96557</a></div></li>
+        <li><div><b>UNAM, «El tributo en Mesoamérica».</b><a href="https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad2/mesoamerica/economia" target="_blank" rel="noopener noreferrer">https://e1.portalacademico.cch.unam.mx/alumno/historiademexico1/unidad2/mesoamerica/economia</a></div></li>
+      </ol>
+      <p class="cred"><b>Créditos.</b> Presentación escolar interactiva «Museo interactivo del tiempo fiscal de México». Su contenido académico se basa exclusivamente en la información de las fuentes anteriores.</p>
+    </div>
+  </div>
+
+  <!-- Modal: Desafío -->
+  <div class="modal" id="mQuiz" role="dialog" aria-modal="true" aria-labelledby="qzT" aria-hidden="true">
+    <div class="panel" id="qzPanel">
+      <button class="x" type="button" data-close aria-label="Cerrar ventana"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      <div id="qzBody"></div>
+    </div>
+  </div>
+
+  <canvas id="fx" width="1920" height="1080" aria-hidden="true"></canvas>
+</main>
+</div>
+
+<div id="rotate" role="status"><span>Para ver mejor la presentación, gira tu dispositivo en horizontal.</span><button type="button" id="rotateX">Entendido</button></div>
+<script>
+(function(){
+'use strict';
+/* ============ Utilidades ============ */
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var root=document.documentElement, stage=$('#stage'), deck=$('#deck'), ghostLayer=$('#ghostLayer');
+var SCALE=1, RM=false;
+var mqRM=window.matchMedia?matchMedia('(prefers-reduced-motion: reduce)'):null;
+var btnRM=$('#btnRM');
+function setRM(v){RM=!!v;root.classList.toggle('rm',RM);btnRM.setAttribute('aria-pressed',String(RM));if(RM){stopFlow();staticFlow()}else if(cur===0){startFlow()}}
+btnRM.addEventListener('click',function(){setRM(!RM)});
+if(mqRM){var f=function(e){setRM(e.matches)};if(mqRM.addEventListener)mqRM.addEventListener('change',f);else if(mqRM.addListener)mqRM.addListener(f)}
+function pad(n){return (n<10?'0':'')+n}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function countTo(el,to,ms,from,fmt){
+  fmt=fmt||function(v){return String(v)};from=from||0;
+  if(el._raf)cancelAnimationFrame(el._raf);
+  if(RM||!ms){el.textContent=fmt(to);return}
+  var t0=performance.now();
+  (function step(t){var k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(from+(to-from)*e));if(k<1)el._raf=requestAnimationFrame(step)})(t0);
+}
+function toStage(cx,cy){var r=stage.getBoundingClientRect();return {x:(cx-r.left)/SCALE,y:(cy-r.top)/SCALE}}
+function stageXY(el){var r=el.getBoundingClientRect(),s=toStage(r.left+r.width/2,r.top+r.height/2);return s}
+function clearT(a){a.forEach(clearTimeout);a.length=0}
+
+/* ============ Escala 16:9 ============ */
+var rotEl=$('#rotate'),rotDismissed=false;
+function fit(){
+  var w=window.innerWidth,h=window.innerHeight,s=Math.min(w/1920,h/1080);
+  SCALE=s;stage.style.transform='translate('+((w-1920*s)/2)+'px,'+((h-1080*s)/2)+'px) scale('+s+')';
+  rotEl.classList.toggle('show',!rotDismissed&&h>w*1.1&&w<900);
+}
+window.addEventListener('resize',fit);fit();
+$('#rotateX').addEventListener('click',function(){rotDismissed=true;fit()});
+
+/* Paralaje suave del fondo */
+var px=0,py=0,pq=false;
+window.addEventListener('pointermove',function(e){
+  if(RM||e.pointerType==='touch')return;px=(e.clientX/innerWidth-.5)*2;py=(e.clientY/innerHeight-.5)*2;
+  if(!pq){pq=true;requestAnimationFrame(function(){pq=false;stage.style.setProperty('--mx',px.toFixed(3));stage.style.setProperty('--my',py.toFixed(3))})}
+},{passive:true});
+
+/* ============ FX (confeti) ============ */
+var fx=$('#fx'),cx=fx.getContext('2d'),parts=[],fxOn=false;
+var COL=['#D3A451','#EBCB8B','#AC5146','#E8978B','#F6F0E6','#ffffff'];
+function burst(x,y,n,power){
+  if(RM)return;n=n||70;power=power||1;
+  for(var i=0;i<n&&parts.length<420;i++){var a=Math.random()*Math.PI*2,s=(4+Math.random()*10)*power;
+    parts.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*power,w:6+Math.random()*7,h:4+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:COL[i%COL.length],l:1,d:.008+Math.random()*.01})}
+  if(!fxOn){fxOn=true;requestAnimationFrame(fxStep)}
+}
+function fxStep(){
+  cx.clearRect(0,0,1920,1080);
+  parts.forEach(function(p){p.vy+=.35;p.vx*=.992;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l-=p.d;
+    cx.save();cx.globalAlpha=Math.max(p.l,0);cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});
+  parts=parts.filter(function(p){return p.l>0&&p.y<1200});
+  if(parts.length)requestAnimationFrame(fxStep);else{fxOn=false;cx.clearRect(0,0,1920,1080)}
+}
+
+/* ============ Arrastrar y soltar (ratón, táctil y lápiz) ============ */
+function makeDrag(el,opt){
+  var sup=false;
+  el.addEventListener('click',function(ev){if(sup){ev.stopImmediatePropagation();ev.preventDefault();sup=false}},true);
+  el.addEventListener('pointerdown',function(e){
+    if(e.button!==0||(opt.canDrag&&!opt.canDrag()))return;
+    var sx=e.clientX,sy=e.clientY,drag=false,ghost=null,ox=0,oy=0,over=null,r0=el.getBoundingClientRect();
+    function find(x,y){var l=document.elementsFromPoint(x,y);for(var i=0;i<l.length;i++){var z=l[i].closest&&l[i].closest(opt.zone);if(z&&z.closest('.slide.active'))return z}return null}
+    function place(x,y){var p=toStage(x,y);ghost.style.left=(p.x-ox)+'px';ghost.style.top=(p.y-oy)+'px'}
+    function mv(ev){
+      if(!drag){
+        if(Math.hypot(ev.clientX-sx,ev.clientY-sy)<7)return;
+        drag=true;el.classList.add('dragging');
+        ghost=el.cloneNode(true);ghost.classList.remove('dragging','pulse','sel');ghost.classList.add('ghost');ghost.removeAttribute('id');
+        ghost.style.width=(r0.width/SCALE)+'px';ghost.style.height=(r0.height/SCALE)+'px';
+        ox=(sx-r0.left)/SCALE;oy=(sy-r0.top)/SCALE;ghostLayer.appendChild(ghost);
+      }
+      place(ev.clientX,ev.clientY);
+      var z=find(ev.clientX,ev.clientY);
+      if(z!==over){if(over)over.classList.remove('over');over=z;if(over)over.classList.add('over')}
+    }
+    function up(ev){
+      el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);
+      try{el.releasePointerCapture(e.pointerId)}catch(_){}
+      if(!drag)return;
+      if(ghost)ghost.remove();el.classList.remove('dragging');if(over)over.classList.remove('over');
+      sup=true;setTimeout(function(){sup=false},60);
+      var z=ev.type==='pointerup'?find(ev.clientX,ev.clientY):null;
+      if(z)opt.onDrop(z,{x:ev.clientX,y:ev.clientY});
+    }
+    try{el.setPointerCapture(e.pointerId)}catch(_){}
+    el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
+  });
+}
+
+/* ============ Navegación ============ */
+var slides=$$('.slide'),N=slides.length,cur=-1;
+var cCur=$('#cCur'),progFill=$('#progFill'),prog=$('#prog'),steps=$$('.step'),bPrev=$('#btnPrev'),bNext=$('#btnNext');
+var enterHooks=[],leaveHooks=[];
+function go(n,force){
+  n=Math.max(0,Math.min(N-1,n));if(n===cur&&!force)return;
+  var prev=cur;cur=n;
+  slides.forEach(function(s,i){
+    s.classList.toggle('active',i===n);s.classList.toggle('before',i<n);
+    s.setAttribute('aria-hidden',i===n?'false':'true');
+    try{s.inert=(i!==n)}catch(_){}
+  });
+  var sw=$('.sweep',slides[n]);sw.classList.remove('go');void sw.offsetWidth;if(!RM)sw.classList.add('go');
+  cCur.textContent=pad(n+1);cCur.classList.remove('flip');void cCur.offsetWidth;if(!RM)cCur.classList.add('flip');
+  progFill.style.transform='scaleX('+((n+1)/N)+')';prog.setAttribute('aria-valuenow',String(n+1));
+  steps.forEach(function(b,i){b.setAttribute('aria-current',String(i===n))});
+  bPrev.disabled=n===0;bNext.disabled=n===N-1;
+  if(prev>=0&&leaveHooks[prev])leaveHooks[prev]();
+  if(enterHooks[n])enterHooks[n]();
+  try{history.replaceState(null,'','#'+(n+1))}catch(_){}
+}
+function next(){go(cur+1)}function prevS(){go(cur-1)}
+bNext.addEventListener('click',next);bPrev.addEventListener('click',prevS);
+steps.forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go)})});
+
+/* Deslizar con el dedo (solo si no se está usando un control) */
+var tx=0,ty=0,tOn=false;
+deck.addEventListener('touchstart',function(e){
+  if(e.touches.length!==1||(window.visualViewport&&visualViewport.scale>1.05)||e.target.closest('input,button,.tok,.coin,.dest,.slot,.obj,.node,.mega')){tOn=false;return}
+  tOn=true;tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+deck.addEventListener('touchend',function(e){
+  if(!tOn)return;tOn=false;var t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dy)<70){dx<0?next():prevS()}},{passive:true});
+
+/* Pantalla completa */
+var bFS=$('#btnFS'),fsLabel=$('#fsLabel');
+function isFS(){return document.fullscreenElement||document.webkitFullscreenElement}
+function toggleFS(){
+  try{
+    if(isFS()){var x=document.exitFullscreen||document.webkitExitFullscreen;var p=x.call(document);if(p&&p.catch)p.catch(function(){})}
+    else{var r=root.requestFullscreen||root.webkitRequestFullscreen;if(r){var q=r.call(root);if(q&&q.catch)q.catch(function(){})}}
+  }catch(_){}
+}
+if(!(root.requestFullscreen||root.webkitRequestFullscreen))bFS.hidden=true;
+bFS.addEventListener('click',toggleFS);
+function fsChange(){fsLabel.textContent=isFS()?'Salir de pantalla completa':'Pantalla completa';setTimeout(fit,60)}
+document.addEventListener('fullscreenchange',fsChange);document.addEventListener('webkitfullscreenchange',fsChange);
+
+/* ============ Modales ============ */
+var activeModal=null,lastFocus=null,inertEls=[$('#deck'),$('#top'),$('#bot')];
+function focusables(m){return $$('button:not([disabled]),a[href],input,[tabindex]:not([tabindex="-1"])',m).filter(function(n){return n.offsetParent!==null||n===document.activeElement})}
+function openModal(id){
+  var m=$('#'+id);if(!m)return;lastFocus=document.activeElement;activeModal=m;
+  inertEls.forEach(function(e){try{e.inert=true}catch(_){}});
+  m.classList.add('open');m.setAttribute('aria-hidden','false');
+  setTimeout(function(){var f=$('[data-focus]',m)||focusables(m)[0];if(f)f.focus()},60);
+}
+function closeModal(){
+  if(!activeModal)return;var m=activeModal;activeModal=null;
+  m.classList.remove('open');m.setAttribute('aria-hidden','true');
+  inertEls.forEach(function(e){try{e.inert=false}catch(_){}});
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+$$('.modal').forEach(function(m){
+  m.addEventListener('mousedown',function(e){if(e.target===m)closeModal()});
+  $$('[data-close]',m).forEach(function(b){b.addEventListener('click',closeModal)});
+});
+$('#btnSrc').addEventListener('click',function(){openModal('mSrc')});
+
+/* ============ Teclado ============ */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  if(activeModal){
+    if(e.key==='Escape'){e.preventDefault();closeModal();return}
+    if(e.key==='Tab'){var f=focusables(activeModal);if(!f.length)return;var a=document.activeElement,i=f.indexOf(a);
+      if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}
+    if(activeModal.id==='mQuiz'&&/^[1-4]$/.test(e.key))quizKey(+e.key-1);
+    return;
+  }
+  var t=e.target,inRange=t&&t.matches&&t.matches('input[type=range]');
+  if(e.key==='ArrowRight'||e.key==='PageDown'){if(inRange&&e.key==='ArrowRight')return;e.preventDefault();next()}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){if(inRange&&e.key==='ArrowLeft')return;e.preventDefault();prevS()}
+  else if(e.key==='Home'&&!inRange){go(0)}
+  else if(e.key==='End'&&!inRange){go(N-1)}
+  else if((e.key==='f'||e.key==='F')&&!(t&&t.matches&&t.matches('input,textarea'))){toggleFS()}
+});
+
+/* ============ DIAPOSITIVA 1 ============ */
+/* Título gigante letra por letra */
+(function(){
+  var h=$('.hero'),lines=h.dataset.lines.split('|'),i=0;
+  h.setAttribute('aria-label',lines.join(' '));
+  h.innerHTML=lines.map(function(l,li){
+    return '<span class="ln '+(li===1?'ac':li===2?'tx':'')+'" aria-hidden="true">'+l.split(' ').map(function(w){
+      return '<span class="w">'+w.split('').map(function(c){return '<span class="ch" style="--i:'+(i++)+'">'+esc(c)+'</span>'}).join('')+'</span>'}).join(' ')+'</span>'}).join('');
+})();
+/* asigna retardos escalonados a los elementos .rv */
+slides.forEach(function(s){$$('.rv',s).forEach(function(el,i){if(!el.style.getPropertyValue('--d'))el.style.setProperty('--d',String(i))})});
+
+/* Monedas animadas (requestAnimationFrame, solo cuando la diapositiva es visible) */
+var NS='http://www.w3.org/2000/svg',coinsLayer=$('#coinsLayer'),paths=[0,1,2].map(function(i){return document.getElementById('pth'+i)}),plen=paths.map(function(p){return p.getTotalLength()});
+var flowCoins=[],boxGlow=$('#boxGlow'),flowRAF=0;
+for(var ci=0;ci<9;ci++){var u=document.createElementNS(NS,'use');u.setAttribute('href','#coinG');coinsLayer.appendChild(u);flowCoins.push({el:u,p:ci%3,ph:ci/9})}
+function placeCoins(time){
+  var glow=0;
+  flowCoins.forEach(function(c){
+    var k=((time/5600)+c.ph)%1,e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pt=paths[c.p].getPointAtLength(e*plen[c.p]*.9+plen[c.p]*.1*k);
+    var s=1.15-.35*k,op=k<.06?k/.06:(k>.93?(1-k)/.07:1);
+    c.el.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+') scale('+s.toFixed(2)+') rotate('+(k*540).toFixed(0)+')');
+    c.el.setAttribute('opacity',op.toFixed(2));
+    if(k>.86)glow=Math.max(glow,(k>.93?(1-k)/.07:1)*.8);
+  });
+  boxGlow.setAttribute('opacity',glow.toFixed(2));
+}
+function flowTick(t){if(!flowRAF)return;placeCoins(t);flowRAF=requestAnimationFrame(flowTick)}
+function startFlow(){if(RM||flowRAF)return;flowRAF=requestAnimationFrame(flowTick)}
+function stopFlow(){if(flowRAF){cancelAnimationFrame(flowRAF);flowRAF=0}}
+function staticFlow(){placeCoins(1800)}
+document.addEventListener('visibilitychange',function(){if(document.hidden)stopFlow();else if(cur===0)startFlow()});
+
+/* Tres elementos: Contribuyentes, Impuestos y Gasto público */
+var scene1=$('#scene1'),info=$('#info'),hs=$$('.hs');
+var P='';
+var INFO={
+  contrib:{h:'Contribuyentes',p:'Son las personas que deben pagar impuestos. El derecho fiscal fija sus obligaciones y también sus derechos frente a la autoridad fiscal.',
+    svg:'<svg viewBox="0 0 100 100"><g><circle cx="20" cy="52" r="8" fill="#F6F0E6"/><path d="M8 88V74a12 13 0 0 1 24 0v14z" fill="#F6F0E6"/></g><g><circle cx="50" cy="52" r="8" fill="#E8978B"/><path d="M38 88V74a12 13 0 0 1 24 0v14z" fill="#AC5146"/></g><g><circle cx="80" cy="52" r="8" fill="#EBCB8B"/><path d="M68 88V74a12 13 0 0 1 24 0v14z" fill="#D3A451"/></g><g class="a-drop" style="animation-delay:.05s"><use href="#coinG" transform="translate(20 28) scale(.95)"/></g><g class="a-drop" style="animation-delay:.25s"><use href="#coinG" transform="translate(50 22) scale(.95)"/></g><g class="a-drop" style="animation-delay:.45s"><use href="#coinG" transform="translate(80 28) scale(.95)"/></g></svg>'},
+  tax:{h:'Impuestos',p:'Son contribuciones que se pagan conforme a la ley. El artículo 31, fracción IV, establece contribuir a los gastos públicos de manera proporcional y equitativa, según dispongan las leyes.',
+    svg:'<svg viewBox="0 0 100 100"><rect x="20" y="8" width="58" height="80" rx="7" fill="#F6F0E6"/><path class="a-draw" d="M31 28h36M31 41h36M31 54h24" stroke="#AC5146" stroke-width="4.5" stroke-linecap="round" style="stroke-dasharray:120;stroke-dashoffset:120"/><g class="a-pop" style="animation-delay:.9s"><circle cx="68" cy="74" r="15" fill="#AC5146"/><text x="68" y="80" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Georgia,serif">31</text></g></svg>'},
+  spend:{h:'Gasto público',p:'Es el uso de los recursos recaudados en servicios públicos, infraestructura y otras necesidades del Estado. Decidir cómo se asignan es política de gasto.',
+    svg:'<svg viewBox="0 0 100 100"><path class="a-draw" d="M50 30L18 74M50 30V76M50 30L82 74" stroke="#EBCB8B" stroke-width="3" stroke-linecap="round" fill="none" style="stroke-dasharray:60;stroke-dashoffset:60"/><g class="a-pop"><use href="#coinG" transform="translate(50 20) scale(1.35)"/></g><g class="a-pop" style="animation-delay:.7s"><circle cx="18" cy="78" r="11" fill="#EBCB8B"/><path d="M12 76h12M18 70v12" stroke="#101B2D" stroke-width="3" stroke-linecap="round"/></g><g class="a-pop" style="animation-delay:.85s"><circle cx="50" cy="82" r="11" fill="#E8978B"/><path d="M45 82h10M50 77v10" stroke="#101B2D" stroke-width="3" stroke-linecap="round"/></g><g class="a-pop" style="animation-delay:1s"><circle cx="82" cy="78" r="11" fill="#F6F0E6"/><path d="M74 80h16M76 80v-8M88 80v-8M74 72h16" stroke="#101B2D" stroke-width="2.4" stroke-linecap="round" fill="none"/></g></svg>'}
+};
+function showInfo(k){
+  hs.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.k===k));b.classList.remove('pulse')});
+  scene1.dataset.focus=k;var d=INFO[k];
+  info.innerHTML='<div class="info-in fade"><div class="info-ic" aria-hidden="true">'+d.svg+'</div><div><h4>'+d.h+'</h4><p>'+d.p+'</p></div></div>';
+  var hint=$('#hint1');if(hint)hint.textContent='Pulsa otro elemento para comparar';
+}
+hs.forEach(function(b){b.addEventListener('click',function(){showInfo(b.dataset.k)})});
+
+/* Tarjeta que gira */
+var flip=$('#flip');
+flip.addEventListener('click',function(){var on=flip.getAttribute('aria-pressed')!=='true';flip.setAttribute('aria-pressed',String(on));flip.setAttribute('aria-label',on?'Tarjeta volteada: la diferencia entre derecho fiscal y política de gasto público. Pulsa para regresarla.':'Tarjeta: No confundir. Pulsa para voltearla.')});
+
+/* Simulación «¿A dónde van los impuestos?» */
+var coinsEl=$('#coins'),simMsg=$('#simMsg'),dests={};
+$$('.dest').forEach(function(d){dests[d.dataset.d]=d});
+var NAMES={edu:'Educación',sal:'Salud',inf:'Infraestructura'},sim={left:6,counts:{edu:0,sal:0,inf:0}};
+var DEF_MSG='Arrastra una moneda hacia un destino, o pulsa el destino para enviar una.';
+function plural(n){return n===1?'1 moneda':n+' monedas'}
+function flyIn(el,pt){
+  if(RM||!el.animate)return;var r=el.getBoundingClientRect();
+  var dx=(pt.x-(r.left+r.width/2))/SCALE,dy=(pt.y-(r.top+r.height/2))/SCALE;
+  el.animate([{transform:'translate('+dx+'px,'+dy+'px) scale(1.9)',opacity:.85},{transform:'translate(0,0) scale(1)',opacity:1}],{duration:560,easing:'cubic-bezier(.22,.8,.22,1)'});
+}
+function buildCoins(){
+  coinsEl.innerHTML='';
+  for(var i=0;i<6;i++){
+    var b=document.createElement('button');b.type='button';b.className='coin';b.setAttribute('aria-label','Moneda simbólica: elige un destino para enviarla');
+    b.addEventListener('click',function(){simMsg.textContent='Elige un destino: arrastra la moneda o pulsa Educación, Salud o Infraestructura.';Object.keys(dests).forEach(function(k){var d=dests[k];d.classList.add('over');setTimeout(function(){d.classList.remove('over')},700)})});
+    makeDrag(b,{zone:'.dest',onDrop:function(z,pt){send(z.dataset.d,pt,this)}.bind(b)});
+    coinsEl.appendChild(b);
+  }
+}
+function send(k,pt,coin){
+  if(sim.left<=0)return;
+  var el=(coin&&coin.parentNode)?coin:coinsEl.lastElementChild;if(!el)return;
+  var r=el.getBoundingClientRect(),from=pt||{x:r.left+r.width/2,y:r.top+r.height/2};
+  el.remove();sim.left--;sim.counts[k]++;
+  var d=dests[k],chip=document.createElement('span');chip.className='chip';d.querySelector('.stack').appendChild(chip);
+  d.querySelector('.cnt').textContent=sim.counts[k];flyIn(chip,from);
+  if(sim.left===0){
+    var c=sim.counts;
+    simMsg.innerHTML='<strong>¡Listo!</strong> Repartiste '+plural(c.edu)+' a Educación, '+plural(c.sal)+' a Salud y '+plural(c.inf)+' a Infraestructura. Cada moneda que va a un destino ya no puede ir a otro: decidir ese reparto es <strong>política de gasto público</strong>. El derecho fiscal fija las reglas para recaudar.';
+    var p=stageXY(d);burst(p.x,p.y,50,.8);
+  }else simMsg.innerHTML='Moneda enviada a <strong>'+NAMES[k]+'</strong>. Quedan '+plural(sim.left)+'.';
+}
+function resetSim(){
+  sim.left=6;sim.counts={edu:0,sal:0,inf:0};buildCoins();
+  Object.keys(dests).forEach(function(k){dests[k].querySelector('.stack').innerHTML='';dests[k].querySelector('.cnt').textContent='0'});
+  simMsg.textContent=DEF_MSG;
+}
+$$('.dest').forEach(function(d){
+  d.addEventListener('click',function(){send(d.dataset.d)});
+  d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();send(d.dataset.d)}});
+});
+$('#simReset').addEventListener('click',resetSim);resetSim();
+
+enterHooks[0]=function(){if(RM)staticFlow();else startFlow()};
+leaveHooks[0]=function(){stopFlow()};
+
+/* ============ DIAPOSITIVA 2 ============ */
+var eraScene=$('#eraScene'),range=$('#eraRange'),eraCard=$('#eraCard'),eraMode='',eraTouched=false,twRAF=0;
+var ERA={
+  meso:{lab:'Época prehispánica',h:'Mesoamérica: productos y trabajo',p:'Comunidades y pueblos sometidos entregaban productos, recursos o trabajo a sus gobernantes. No era un sistema único ni idéntico en todas las sociedades.'},
+  colo:{lab:'Época colonial',h:'Nueva España: la Real Hacienda',p:'La Corona española organizó la recaudación por medio de instituciones como la Real Hacienda, y utilizó diferentes tributos e impuestos.'},
+  mix:{lab:'Diferencia clave',h:'Del tributo en especie a los impuestos',p:'En la época prehispánica predominaban en muchos sistemas las entregas de productos y trabajo. En la Colonia coexistieron tributos en especie, dinero y diferentes impuestos al comercio y a la minería.'}
+};
+function setEra(v){
+  eraScene.style.setProperty('--rev',v);$('.divider').style.opacity=(v<1||v>99)?'0':'1';
+  var m=v<35?'meso':v>65?'colo':'mix';
+  range.setAttribute('aria-valuetext',m==='meso'?'Mesoamérica':m==='colo'?'Nueva España':'Entre Mesoamérica y Nueva España');
+  if(m!==eraMode){eraMode=m;var d=ERA[m];$('#eraLab').textContent=d.lab;$('#eraH').textContent=d.h;$('#eraP').textContent=d.p;eraCard.classList.remove('swap');void eraCard.offsetWidth;if(!RM)eraCard.classList.add('swap')}
+}
+function tweenRange(to,ms){
+  if(twRAF)cancelAnimationFrame(twRAF);var from=+range.value;
+  if(RM){range.value=to;setEra(to);return}
+  var t0=performance.now();
+  (function step(t){var k=Math.min(1,(t-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2,v=from+(to-from)*e;range.value=v;setEra(v);if(k<1)twRAF=requestAnimationFrame(step)})(t0);
+}
+range.addEventListener('input',function(){eraTouched=true;if(twRAF)cancelAnimationFrame(twRAF);setEra(+range.value);hideHint2()});
+range.addEventListener('keydown',function(e){
+  var d=e.key==='ArrowRight'?5:e.key==='ArrowLeft'?-5:0;
+  if(d){e.preventDefault();eraTouched=true;var v=Math.max(0,Math.min(100,+range.value+d));range.value=v;setEra(v);hideHint2()}
+});
+$('#goMeso').addEventListener('click',function(){eraTouched=true;tweenRange(0,900)});
+$('#goColo').addEventListener('click',function(){eraTouched=true;tweenRange(100,900)});
+function hideHint2(){var h=$('#hint2');if(h)h.style.opacity='0'}
+
+/* Fichas de objetos */
+var FICHAS={
+  maiz:{h:'Maíz',e:'Mesoamérica',p:'Aparece entre los ejemplos de tributo en especie: los pueblos sometidos entregaban productos a sus gobernantes.',i:'maiz'},
+  cacao:{h:'Cacao',e:'Mesoamérica',p:'Otro producto entregado como tributo. Además de productos y recursos, también se podían entregar servicios de trabajo.',i:'cacao'},
+  textil:{h:'Textiles',e:'Mesoamérica',p:'Los textiles también se entregaban como tributo. No era un sistema único ni idéntico: variaba entre las sociedades mesoamericanas.',i:'textil'},
+  monedas:{h:'Monedas',e:'Nueva España',p:'El tributo indígena podía pagarse en productos, dinero o, según la etapa y el contexto, con trabajo. En la Colonia coexistieron tributos en especie y en dinero.',i:'monedas'},
+  mineral:{h:'Mineral precioso',e:'Nueva España',p:'El Quinto Real fue un gravamen históricamente vinculado a la extracción de metales preciosos. Mira su animación en el panel de abajo ↓',i:'mineral'},
+  pergamino:{h:'Pergamino de la Real Hacienda',e:'Nueva España',p:'La Corona española organizó la recaudación por medio de instituciones como la Real Hacienda, con documentos, tributos e impuestos diversos.',i:'pergamino'}
+};
+var ficha=$('#ficha'),objs=$$('.obj');
+objs.forEach(function(b){
+  b.addEventListener('click',function(){
+    var d=FICHAS[b.dataset.k];
+    objs.forEach(function(o){o.setAttribute('aria-pressed',String(o===b));o.classList.remove('pulse');var ic=$('.ic',o);if(ic)ic.classList.remove('pulse-ring')});
+    var svg=$('svg',b).outerHTML;
+    ficha.innerHTML='<div class="ficha-in"><div class="fi" aria-hidden="true">'+svg+'</div><div><span class="era-t">'+d.e+' · Ficha histórica</span><h4>'+d.h+'</h4><p>'+d.p+'</p></div></div>';
+    ficha.classList.remove('swap');void ficha.offsetWidth;if(!RM)ficha.classList.add('swap');
+    if(b.dataset.k==='mineral'){qrSet(false);setTimeout(function(){qrSet(true)},RM?0:350)}
+  });
+});
+
+/* Quinto Real: 5 monedas, una se separa (20%) */
+var qrEl=$('#qr'),qrBtn=$('#qrBtn'),qrPct=$('#qrPct'),qrAuto=false;
+function qrSet(on){
+  qrEl.classList.toggle('split',on);qrBtn.textContent=on?'↺ Volver a juntar':'Separar el quinto';
+  if(on){var b=qrEl.getBoundingClientRect(),p=toStage(b.left+b.width*.78,b.top+b.height*.3);countTo(qrPct,20,1100,0,function(v){return v+'%'});if(!RM)setTimeout(function(){burst(p.x,p.y,26,.5)},700)}
+  else{if(qrPct._raf)cancelAnimationFrame(qrPct._raf);qrPct.textContent='0%'}
+}
+qrBtn.addEventListener('click',function(){qrSet(!qrEl.classList.contains('split'))});
+
+/* Minijuego: identifica el sistema o tributo */
+var CARDS=[
+  {id:'esp',name:'Tributo en especie',nat:'es un pago con productos (maíz, cacao, textiles…)'},
+  {id:'enc',name:'Encomienda',nat:'es una institución colonial, no un impuesto independiente'},
+  {id:'alc',name:'Alcabala',nat:'es un impuesto sobre compraventas y permutas'},
+  {id:'qui',name:'Quinto Real',nat:'es un gravamen vinculado a los metales preciosos'}
+];
+var CLUES=[
+  {id:'alc',t:'Impuesto sobre compraventas y permutas; sus tasas variaban según la época.',hint:'piensa en compraventas y permutas: un impuesto sobre transacciones.',ok:'Alcabala: grava compraventas y permutas, y su aplicación y tasas variaban según la época. No debe equipararse jurídicamente con el IVA moderno.'},
+  {id:'esp',t:'Pueblos sometidos entregaban maíz, cacao o textiles a sus gobernantes.',hint:'fíjate en lo que se entrega: productos, no una institución ni un gravamen al comercio.',ok:'Tributo en especie: se paga con productos. En muchos sistemas prehispánicos predominaban las entregas de productos y trabajo.'},
+  {id:'qui',t:'Gravamen ligado a la extracción de metales preciosos: originalmente, una quinta parte.',hint:'busca los metales preciosos y la «quinta parte» (20%).',ok:'Quinto Real: vinculado a la extracción de metales preciosos; originalmente 20% en los casos y periodos en que correspondía, y cambió con el tiempo.'},
+  {id:'enc',t:'Institución colonial: sus beneficiarios recibían tributos y aprovechaban trabajo indígena.',hint:'la clave es la palabra «institución»: no es un impuesto independiente.',ok:'Encomienda: institución que permitió a encomenderos recibir tributos y aprovechar trabajo indígena bajo obligaciones establecidas por la Corona.'}
+];
+var tray=$('#tray'),slotsEl=$('#slots'),gFb=$('#gFb'),gScore=$('#gScore'),gSel=null,gOk=0;
+function gMsg(cls,html){gFb.className='fb '+(cls||'');gFb.innerHTML=html}
+function buildGame(){
+  gSel=null;gOk=0;gScore.textContent='Aciertos 0/4';
+  $$('.tok',tray).forEach(function(n){n.remove()});slotsEl.innerHTML='';
+  CARDS.forEach(function(c){
+    var b=document.createElement('button');b.type='button';b.className='tok';b.dataset.id=c.id;b.setAttribute('aria-pressed','false');b.textContent=c.name;
+    b.addEventListener('click',function(){selectTok(b)});
+    makeDrag(b,{zone:'.slot',onDrop:function(z){selectTok(b,true);place(b,z)}});
+    tray.appendChild(b);
+  });
+  CLUES.forEach(function(c,i){
+    var s=document.createElement('div');s.className='slot dropzone';s.dataset.id=c.id;s.tabIndex=0;s.setAttribute('role','button');
+    s.setAttribute('aria-label','Pista '+(i+1)+': '+c.t+' Pulsa para colocar la tarjeta seleccionada.');
+    s.innerHTML='<span class="sn">'+(i+1)+'</span><p>'+esc(c.t)+'</p><div class="place"></div>';
+    s.addEventListener('click',function(){if(s.classList.contains('ok'))return;if(!gSel){gMsg('','Primero elige una tarjeta (pulsa una) o arrástrala hasta la pista.');return}place(gSel,s)});
+    s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();s.click()}});
+    slotsEl.appendChild(s);
+  });
+  gMsg('','Lee cada pista y coloca la tarjeta que le corresponde.');
+}
+function selectTok(b,silent){
+  $$('.tok',tray).forEach(function(n){var on=n===b&&!(n===gSel&&!silent);n.classList.toggle('sel',on);n.setAttribute('aria-pressed',String(on))});
+  gSel=b.classList.contains('sel')?b:null;
+  if(gSel&&!silent)gMsg('','Tarjeta «<strong>'+esc(b.textContent)+'</strong>» elegida: ahora pulsa la pista que le corresponde (o arrástrala).');
+}
+function place(tok,slot){
+  if(slot.classList.contains('ok'))return;
+  var card=CARDS.filter(function(c){return c.id===tok.dataset.id})[0],clue=CLUES.filter(function(c){return c.id===slot.dataset.id})[0];
+  if(card.id===clue.id){
+    slot.classList.remove('bad');slot.classList.add('ok');slot.setAttribute('aria-label','Pista resuelta: '+card.name);
+    tok.classList.remove('sel');tok.setAttribute('aria-pressed','false');tok.disabled=true;
+    var done=document.createElement('span');done.className='tok';done.textContent='✓ '+card.name;$('.place',slot).appendChild(done);
+    tok.classList.add('used');gSel=null;gOk++;gScore.textContent='Aciertos '+gOk+'/4';
+    var p=stageXY(slot);burst(p.x,p.y,gOk===4?90:34,gOk===4?1.1:.6);
+    if(gOk===4)gMsg('win','<strong>¡Excelente!</strong> Identificaste los cuatro sistemas. Recuerda: la encomienda es una institución, no un impuesto independiente. Pulsa «Reiniciar» para jugar otra vez.');
+    else gMsg('ok','<strong>¡Correcto!</strong> '+clue.ok);
+  }else{
+    slot.classList.remove('shake');void slot.offsetWidth;slot.classList.add('shake','bad');setTimeout(function(){slot.classList.remove('bad')},1600);
+    tok.classList.remove('sel');tok.setAttribute('aria-pressed','false');gSel=null;
+    gMsg('bad','<strong>Todavía no.</strong> «'+esc(card.name)+'» '+card.nat+'. Pista: '+clue.hint);
+  }
+}
+$('#gReset').addEventListener('click',buildGame);buildGame();
+
+var seenS2=false;
+enterHooks[1]=function(){
+  if(!eraTouched){
+    if(RM){range.value=50;setEra(50)}
+    else{range.value=0;setEra(0);setTimeout(function(){if(cur===1&&!eraTouched)tweenRange(50,1500)},900)}
+  }
+  if(!qrEl.classList.contains('split'))setTimeout(function(){if(cur===1&&!qrEl.classList.contains('split')&&!qrAuto){qrAuto=true;qrSet(true)}},RM?200:2600);
+  seenS2=true;
+};
+leaveHooks[1]=function(){if(twRAF)cancelAnimationFrame(twRAF)};
+setEra(50);
+
+/* ============ DIAPOSITIVA 3 ============ */
+var TL={
+  1921:{w:'1921 · Antecedente del ISR',h:'La Ley del Centenario',p:'Estableció un impuesto extraordinario sobre determinados ingresos y ganancias. Se considera un antecedente del ISR moderno.'},
+  1924:{w:'1924 · ISR',h:'Disposiciones permanentes',p:'Se establecieron disposiciones permanentes para gravar determinados ingresos, como salarios, honorarios y utilidades.'},
+  1925:{w:'18 de marzo de 1925 · ISR',h:'Primera Ley del Impuesto sobre la Renta',p:'Se promulgó la primera ley con el nombre de Ley del Impuesto sobre la Renta.'},
+  1978:{w:'29 de diciembre de 1978 · IVA',h:'Se publica la Ley del IVA',p:'La Ley del Impuesto al Valor Agregado se publicó en el Diario Oficial de la Federación.'},
+  1980:{w:'1 de enero de 1980 · IVA',h:'El IVA entra en vigor',p:'Desde esta fecha el Impuesto al Valor Agregado comenzó a aplicarse en México.'}
+};
+var nodes=$$('.node'),detail=$('#tlDetail');
+nodes.forEach(function(n){
+  n.addEventListener('click',function(){
+    var d=TL[n.dataset.y];
+    nodes.forEach(function(o){o.setAttribute('aria-pressed',String(o===n));o.classList.remove('pulse')});
+    detail.innerHTML='<div><span class="when">'+d.w+'</span><h4>'+d.h+'</h4><p>'+d.p+'</p></div>';
+    detail.classList.remove('swap');void detail.offsetWidth;if(!RM)detail.classList.add('swap');
+  });
+});
+/* Tarjetas monumentales con inclinación sutil */
+var megas=$$('.mega'),tiltQ=null;
+megas.forEach(function(m){
+  m.addEventListener('pointermove',function(e){
+    if(RM||e.pointerType==='touch')return;
+    var r=m.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    if(m._q)return;m._q=true;
+    requestAnimationFrame(function(){m._q=false;m.style.setProperty('--ry',((x-.5)*6).toFixed(2)+'deg');m.style.setProperty('--rx',(-(y-.5)*5).toFixed(2)+'deg');m.style.setProperty('--lx',(x*100).toFixed(0)+'%');m.style.setProperty('--ly',(y*100).toFixed(0)+'%')});
+  });
+  m.addEventListener('pointerleave',function(){m.style.setProperty('--ry','0deg');m.style.setProperty('--rx','0deg')});
+  m.addEventListener('click',function(e){if(e.target.closest('button'))return;activate(m.dataset.k)});
+  $$('.go',m).forEach(function(g){g.addEventListener('click',function(){activate(m.dataset.k)})});
+});
+function activate(k){
+  megas.forEach(function(m){var on=m.dataset.k===k;m.dataset.active=String(on)});
+  if(k==='isr'){clearT(ivaT);runISR()}else{clearT(isrT);runIVA()}
+}
+var isrT=[],ivaT=[];
+function runISR(){
+  clearT(isrT);var v=$('#isrV'),cap=$('#isrCap'),gov=$('#isrGov');
+  v.className='isr-v';gov.classList.remove('glow');cap.textContent='1 · Una persona recibe un ingreso.';
+  if(RM){v.classList.add('s1','s3');gov.classList.add('glow');cap.textContent='3 · Esa porción simbólica es el impuesto que recibe el Estado.';return}
+  isrT.push(setTimeout(function(){v.classList.add('s1')},350));
+  isrT.push(setTimeout(function(){cap.textContent='2 · La legislación aplicable define qué ingresos se gravan y cómo; por eso la porción varía.';v.classList.add('s2')},1900));
+  isrT.push(setTimeout(function(){cap.textContent='3 · Esa porción simbólica es el impuesto que recibe el Estado.';v.classList.remove('s2');v.classList.add('s3');gov.classList.add('glow')},4700));
+}
+function runIVA(){
+  clearT(ivaT);var rows=$$('.t-row',$('#ticket')),cap=$('#ivaCap'),b1=$('.tbar .b1'),b2=$('.tbar .b2');
+  function money(v){return '$'+v}
+  rows.forEach(function(r){r.classList.remove('on');var b=$('b',r);if(b._raf)cancelAnimationFrame(b._raf);b.textContent='$0'});
+  b1.style.width='0';b2.style.width='0';
+  function row(i,n){var r=rows[i];r.classList.add('on');countTo($('b',r),n,900,0,money)}
+  if(RM){row(0,100);row(1,16);row(2,116);b1.style.width='86.2%';b2.style.width='13.8%';cap.textContent='3 · Total: $100 + $16 = $116 (ejemplo didáctico).';return}
+  cap.textContent='1 · Se elige un artículo hipotético.';
+  ivaT.push(setTimeout(function(){cap.textContent='1 · El artículo cuesta $100 antes de IVA.';row(0,100);b1.style.width='86.2%'},400));
+  ivaT.push(setTimeout(function(){cap.textContent='2 · Se agrega el IVA: 16% de $100 = $16 (solo en este ejemplo).';row(1,16);b2.style.width='13.8%'},2200));
+  ivaT.push(setTimeout(function(){cap.textContent='3 · Total que paga la persona: $100 + $16 = $116.';row(2,116)},4000));
+}
+enterHooks[2]=function(){
+  $$('[data-year]').forEach(function(el){var y=+el.dataset.year;countTo(el,y,1300,y-45)});
+};
+
+/* Desafío ¿ISR o IVA? */
+var QZ=[
+  {q:'¿Qué impuesto se relaciona directamente con los ingresos?',o:['ISR','IVA'],a:0,
+    ok:'¡Correcto! El ISR se relaciona directamente con los ingresos de personas físicas y morales, de acuerdo con las reglas de la legislación aplicable.',
+    bad:{1:'No exactamente. El IVA se relaciona con operaciones de consumo y actividades gravadas por ley. El impuesto ligado directamente a los ingresos es el ISR.'}},
+  {q:'¿En qué año entró en vigor el IVA?',o:['1978','1921','1980','1925'],a:2,
+    ok:'¡Correcto! El IVA se publicó el 29 de diciembre de 1978 y entró en vigor el 1 de enero de 1980.',
+    bad:{0:'Casi: 1978 es el año en que se publicó la ley en el Diario Oficial de la Federación (29 de diciembre). Entró en vigor el 1 de enero de 1980.',1:'1921 pertenece a la historia del ISR (Ley del Centenario). El IVA se publicó en 1978 y entró en vigor en 1980.',3:'1925 es el año de la primera ley llamada ISR. El IVA entró en vigor el 1 de enero de 1980.'}},
+  {q:'¿En qué año se promulgó la primera ley denominada ISR?',o:['1921','1924','1925','1980'],a:2,
+    ok:'¡Correcto! El 18 de marzo de 1925 se promulgó la primera ley con el nombre de Ley del Impuesto sobre la Renta.',
+    bad:{0:'1921 corresponde a la Ley del Centenario, un impuesto extraordinario considerado antecedente del ISR moderno.',1:'En 1924 se establecieron disposiciones permanentes para gravar determinados ingresos, pero la primera ley con el nombre de ISR llegó el 18 de marzo de 1925.',3:'1980 es el año en que entró en vigor el IVA, no el de la primera ley del ISR.'}}
+];
+var qz={i:0,res:[],ans:false,pick:-1},qzBody=$('#qzBody'),LET=['A','B','C','D'];
+function qzScore(){return qz.res.filter(Boolean).length}
+function dots(){return '<div class="qz-dots" aria-hidden="true">'+QZ.map(function(_,i){var c=i<qz.res.length?(qz.res[i]?'ok':'bad'):(i===qz.i?'cur':'');return '<i class="'+c+'"></i>'}).join('')+'</div>'}
+function qzRender(){
+  var q=QZ[qz.i];
+  var h='<div class="qz-top"><div><h2 id="qzT">Desafío: ¿ISR o IVA?</h2></div></div>';
+  h='<div class="qz-top">'+dots()+'<span class="lab" style="color:#8a6425">Pregunta '+(qz.i+1)+' de '+QZ.length+'</span><div class="qz-pts"><small>Puntos</small><span id="qzPts">'+(qzScore()*100)+'</span></div></div>';
+  h+='<h2 id="qzT" class="sr">Desafío: ¿ISR o IVA?</h2><p class="qz-q">'+esc(q.q)+'</p><div class="opts" role="group" aria-label="Opciones de respuesta">';
+  q.o.forEach(function(o,i){
+    var cls='opt';if(qz.ans){if(i===q.a)cls+=' ok';else if(i===qz.pick)cls+=' bad';else cls+=' dim'}
+    h+='<button type="button" class="'+cls+'" data-i="'+i+'"'+(qz.ans?' disabled':'')+(i===0&&!qz.ans?' data-focus':'')+'><i>'+LET[i]+'</i>'+esc(o)+'</button>';
+  });
+  h+='</div>';
+  var good=qz.ans&&qz.pick===q.a;
+  h+='<div class="qz-fb '+(qz.ans?'show ':'')+(good?'ok':'bad')+'" role="status"><span class="ic" aria-hidden="true">'+(good?'✓':'✗')+'</span><span>'+(qz.ans?esc(good?q.ok:(q.bad[qz.pick]||'')):'')+(qz.ans&&!good?' <strong>Respuesta correcta: '+esc(q.o[q.a])+'.</strong>':'')+'</span></div>';
+  h+='<div class="qz-nav"><button type="button" class="pill ghostb" data-act="restart">↺ Reiniciar desafío</button>'+(qz.ans?'<button type="button" class="pill gold" data-act="next" data-focus>'+(qz.i===QZ.length-1?'Ver resultado →':'Siguiente →')+'</button>':'<span style="font-size:16px;color:#4b566b">Pulsa una opción (o las teclas 1–'+q.o.length+')</span>')+'</div>';
+  qzBody.innerHTML=h;
+  var f=$('[data-focus]',qzBody);if(f&&activeModal)f.focus();
+}
+function qzEnd(){
+  var s=qzScore(),pts=s*100,msg=s===3?'¡Maestro del tiempo fiscal!':s===2?'¡Muy bien!':s===1?'Vas por buen camino':'Sigue explorando';
+  var sub=s===3?'Distingues perfectamente el ISR y el IVA y sus fechas clave.':s>=2?'Repasa la línea del tiempo para afinar el último detalle.':'Revisa la línea del tiempo y vuelve a intentarlo: ¡tú puedes!';
+  var list=QZ.map(function(q,i){return '<li class="'+(qz.res[i]?'ok':'bad')+'"><b aria-hidden="true">'+(qz.res[i]?'✓':'✗')+'</b><span><span class="sr">'+(qz.res[i]?'Acertaste: ':'Fallaste: ')+'</span>'+esc(q.q)+' <strong>'+esc(q.o[q.a])+'</strong></span></li>'}).join('');
+  qzBody.innerHTML='<div class="qz-end"><svg class="medal" viewBox="0 0 120 120" aria-hidden="true"><g class="pop"><path d="M38 6h18l8 30H46z" fill="#AC5146"/><path d="M82 6H64l-8 30h18z" fill="#8d3c33"/><circle cx="60" cy="74" r="38" fill="url(#gGold)" stroke="#8a6425" stroke-width="3"/><circle cx="60" cy="74" r="28" fill="none" stroke="#fff6dc" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M60 54l5.6 11.4 12.6 1.8-9.1 8.9 2.1 12.5L60 82.6l-11.2 5.9 2.1-12.5-9.1-8.9 12.6-1.8z" fill="#fff6dc"/></g></svg>'+
+    '<h2 id="qzT" class="sr">Resultado del desafío</h2><h3>'+msg+'</h3><div class="score"><span id="qzFinal">0</span> <small style="font-size:26px">puntos</small></div><p>Acertaste <b>'+s+' de '+QZ.length+'</b> preguntas. '+sub+'</p><ul>'+list+'</ul>'+
+    '<div class="qz-nav" style="justify-content:center;gap:16px"><button type="button" class="pill ghostb" data-act="close">Cerrar</button><button type="button" class="pill gold" data-act="restart" data-focus>↺ Reintentar</button></div></div>';
+  countTo($('#qzFinal'),pts,1100,0);
+  var f=$('[data-focus]',qzBody);if(f)f.focus();
+  if(s>0){burst(560,760,s===3?120:60,1.2);burst(1360,760,s===3?120:60,1.2);if(s===3)setTimeout(function(){burst(960,420,100,1.1)},500)}
+}
+function qzAnswer(i){
+  if(qz.ans)return;var q=QZ[qz.i];if(i<0||i>=q.o.length)return;
+  qz.ans=true;qz.pick=i;qz.res[qz.i]=(i===q.a);qzRender();
+  if(i===q.a){var b=$('.opt.ok',qzBody);if(b){var p=stageXY(b);burst(p.x,p.y,36,.6)}var pts=$('#qzPts');if(pts)countTo(pts,qzScore()*100,600,(qzScore()-1)*100)}
+}
+function qzNext(){if(qz.i>=QZ.length-1){qz.i=QZ.length;qzEnd();return}qz.i++;qz.ans=false;qz.pick=-1;qzRender()}
+function qzReset(){qz={i:0,res:[],ans:false,pick:-1};qzRender()}
+function quizKey(i){if(qz.i<QZ.length)qzAnswer(i)}
+qzBody.addEventListener('click',function(e){
+  var o=e.target.closest('.opt');if(o){qzAnswer(+o.dataset.i);return}
+  var a=e.target.closest('[data-act]');if(!a)return;
+  if(a.dataset.act==='next')qzNext();else if(a.dataset.act==='restart')qzReset();else if(a.dataset.act==='close')closeModal();
+});
+$('#btnQuiz').addEventListener('click',function(){
+  if(qz.i>=QZ.length&&qz.res.length===QZ.length){/* ya terminado: muestra resultado */}else if(!qzBody.innerHTML)qzRender();
+  openModal('mQuiz');
+});
+qzReset();
+if(qz.i<QZ.length)qzRender();
+
+/* ============ Inicio ============ */
+var m=/^#([1-3])$/.exec(location.hash);
+setRM(mqRM&&mqRM.matches);
+go(m?+m[1]-1:0,true);
+})();
+</script>
+</body>
+</html>
